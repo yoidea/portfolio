@@ -20,17 +20,17 @@ class IndexPage extends Component {
   render() {
     let text = (
       <div>
-        <h1 className="title is-size-1 focus-in-contract-bck">
+        <h1 className="title is-size-2 text-focus-in">
           入江一帆（ラムダ）
         </h1>
-        <h2 className="subtitle focus-in-contract-bck-1s">
+        <h2 className="subtitle text-focus-in-1s">
           学生 / エンジニア志望 / 塾講師
         </h2>
       </div>
     )
     if (this.state.isload) {
       text = (
-        <h1 className="title blur-out-expand-fwd"
+        <h1 className="title text-blur-out"
           style={{fontSize: "20em"}}
         >
           λ
