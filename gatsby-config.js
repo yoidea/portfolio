@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `yoidea-portfolio`,
+    title: `入江一帆（ラムダ）`,
     description: `yoidea-portfolio`,
     author: `@yoidea`,
   },
