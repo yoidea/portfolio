@@ -24,6 +24,15 @@ class IndexPage extends Component {
         <h2 className="subtitle text-focus-in-1s">
           学生 / エンジニア志望 / 塾講師
         </h2>
+        <a className="flip-in-hor-bottom-1 button is-success is-rounded is-inverted is-outlined"
+          target="_blank" href="https://twitter.com/yoidea"
+        >Twitter</a>
+        <a className="flip-in-hor-bottom-2 button is-success is-rounded is-inverted is-outlined"
+          target="_blank" href="https://www.nicovideo.jp/user/48313347"
+        >Niconico</a>
+        <a className="flip-in-hor-bottom-3 button is-success is-rounded is-inverted is-outlined"
+          target="_blank" href="https://github.com/yoidea"
+        >Github</a>
       </div>
     )
     if (this.state.isload) {
@@ -40,15 +49,6 @@ class IndexPage extends Component {
           <div className="hero-body">
             <div className="container has-text-centered">
               {text}
-              <a className="button is-success is-rounded is-inverted is-outlined"
-                target="_blank" href="https://twitter.com/yoidea"
-              >Twitter</a>
-              <a className="button is-success is-rounded is-inverted is-outlined"
-                target="_blank" href="https://www.nicovideo.jp/user/48313347"
-              >Niconico</a>
-              <a className="button is-success is-rounded is-inverted is-outlined"
-                target="_blank" href="https://github.com/yoidea"
-              >Github</a>
             </div>
           </div>
         </section>
