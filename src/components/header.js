@@ -5,10 +5,10 @@ import React from "react"
 const Header = ({ siteTitle }) => (
   <header>
     <nav
-      className="navbar is-transparent is-dark is-fixed-top container"
-      style={{ backgroundColor: "transparent" }}
+      className="navbar is-transparent is-dark is-fixed-top is-hidden-touch"
+      style={{ backgroundColor: "rgba(0,0,0,0.3)" }}
     >
-      <div className="navbar-menu">
+      <div className="navbar-menu container">
         <div className="navbar-start">
           <Link className="navbar-item" to="/">
             Home
