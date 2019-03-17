@@ -27,6 +27,8 @@ class AboutPage extends Component {
               }}>
                 何者なのか
               </h1>
+              <p className="subtitle">機械学習をかじっている学生です。音楽、映像、webページ、何でも作ります。</p>
+              <p className="subtitle">コードを書いたり💻、弾いたり🎸するのが好きです。</p>
               <div className="has-text-centered">
                 <a className="button is-link is-rounded is-inverted is-outlined jello-horizontal" href="#academicbg">&or;</a>
               </div>
