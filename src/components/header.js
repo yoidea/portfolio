@@ -4,14 +4,18 @@ import React from "react"
 
 const Header = ({ siteTitle }) => (
   <header>
-    <nav className="navbar is-transparent is-dark is-fixed-top container"
-      style={{backgroundColor: "transparent"}}
+    <nav
+      className="navbar is-transparent is-dark is-fixed-top container"
+      style={{ backgroundColor: "transparent" }}
     >
       <div className="navbar-brand">
-        <div className="navbar-burger burger" data-target="navbarExampleTransparentExample">
-          <span></span>
-          <span></span>
-          <span></span>
+        <div
+          className="navbar-burger burger"
+          data-target="navbarExampleTransparentExample"
+        >
+          <span />
+          <span />
+          <span />
         </div>
       </div>
 

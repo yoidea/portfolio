@@ -10,7 +10,7 @@ class IndexPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isload: true
+      isload: true,
     }
     setTimeout(() => {
       this.setState({ isload: false })
@@ -20,9 +20,7 @@ class IndexPage extends Component {
   render() {
     let text = (
       <div>
-        <h1 className="title is-size-2 text-focus-in">
-          入江一帆（ラムダ）
-        </h1>
+        <h1 className="title is-size-2 text-focus-in">入江一帆（ラムダ）</h1>
         <h2 className="subtitle text-focus-in-1s">
           学生 / エンジニア志望 / 塾講師
         </h2>
@@ -30,9 +28,7 @@ class IndexPage extends Component {
     )
     if (this.state.isload) {
       text = (
-        <h1 className="title text-blur-out"
-          style={{fontSize: "20em"}}
-        >
+        <h1 className="title text-blur-out" style={{ fontSize: "20em" }}>
           λ
         </h1>
       )
@@ -42,9 +38,7 @@ class IndexPage extends Component {
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
         <section className="hero is-success is-fullheight color-change-2x">
           <div className="hero-body">
-            <div className="container has-text-centered">
-              {text}
-            </div>
+            <div className="container has-text-centered">{text}</div>
           </div>
         </section>
       </Layout>
