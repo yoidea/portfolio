@@ -20,7 +20,7 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-helmet": "^5.2.0",
-    "smooth-scroll": "^16.0.0"
+    "sweet-scroll": "^4.0.0"
   },
   "devDependencies": {
     "prettier": "^1.16.4"

@@ -11,12 +11,10 @@ import { StaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
 import "bulma"
-import SmoothScroll from "smooth-scroll"
-if (typeof window !== 'undefined') {
-  const scroll = new SmoothScroll('a[href*="#"]', {
-    speed: 700
-  })
-}
+import SweetScroll from "sweet-scroll"
+const sweetScroll = new SweetScroll({
+  trigger: "a[href^='#']"
+});
 // import "./layout.css"
 
 const Layout = ({ children }) => (
