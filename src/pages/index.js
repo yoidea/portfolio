@@ -40,9 +40,7 @@ class IndexPage extends Component {
     return (
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-        <section className="hero is-success is-fullheight"
-          style={{backgroundColor: "#009688"}}
-        >
+        <section className="hero is-success is-fullheight color-change-2x">
           <div className="hero-body">
             <div className="container has-text-centered">
               {text}
