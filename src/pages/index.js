@@ -38,7 +38,18 @@ class IndexPage extends Component {
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
         <section className="hero is-success is-fullheight color-change-2x">
           <div className="hero-body">
-            <div className="container has-text-centered">{text}</div>
+            <div className="container has-text-centered">
+              {text}
+              <a className="button is-success is-rounded is-inverted is-outlined"
+                target="_blank" href="https://twitter.com/yoidea"
+              >Twitter</a>
+              <a className="button is-success is-rounded is-inverted is-outlined"
+                target="_blank" href="https://www.nicovideo.jp/user/48313347"
+              >Niconico</a>
+              <a className="button is-success is-rounded is-inverted is-outlined"
+                target="_blank" href="https://github.com/yoidea"
+              >Github</a>
+            </div>
           </div>
         </section>
       </Layout>
