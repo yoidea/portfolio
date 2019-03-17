@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Timeline from "../components/timeline"
 
 import "./animista.css"
 
@@ -43,6 +44,7 @@ class AboutPage extends Component {
               }}>
                 経歴
               </h1>
+              <Timeline />
             </div>
           </div>
         </section>
