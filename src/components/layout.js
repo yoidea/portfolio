@@ -11,6 +11,10 @@ import { StaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
 import "bulma"
+import SmoothScroll from "smooth-scroll"
+const scroll = new SmoothScroll('a[href*="#"]', {
+  speed: 700
+})
 // import "./layout.css"
 
 const Layout = ({ children }) => (
