@@ -17,6 +17,9 @@ class IndexPage extends Component {
     setTimeout(() => {
       this.setState({ isload: false })
     }, 1000)
+  }
+
+  componentDidMount() {
     // confetti settings
     const DURATION = 20000
     const LENGTH = 200
@@ -34,6 +37,7 @@ class IndexPage extends Component {
         duration : DURATION
       })
     }, DURATION / 2)
+    window.addEventListener('resize', this.eventHandler)
   }
 
   render() {
