@@ -34,10 +34,17 @@ class ContactPage extends Component {
 
   render() {
     const { name, email, message } = this.state
+    const inputStyle = {
+      backgroundColor: "rgba(0,0,0,0.2)",
+      color: "#fff",
+      borderWidth: "2px"
+    }
     return (
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-        <section className="hero is-success is-fullheight">
+        <section className="hero is-success is-fullheight"
+          style={{backgroundColor: "#607d8b"}}
+        >
           <div className="hero-body">
             <div className="container">
               <h1 className="title is-size-2" style={{
@@ -46,25 +53,30 @@ class ContactPage extends Component {
               }}>
                 お問い合わせ
               </h1>
-              <form name="contact" netlify onSubmit={this.handleSubmit}>
-                <p>
-                  <label>
-                    Name: <input type="text" name="name" value={name} onChange={this.handleChange} />
-                  </label>
-                </p>
-                <p>
-                  <label>
-                    Email: <input type="email" name="email" value={email} onChange={this.handleChange} />
-                  </label>
-                </p>
-                <p>
-                  <label>
-                    Message: <textarea name="message" value={message} onChange={this.handleChange} />
-                  </label>
-                </p>
-                <p>
-                  <button type="submit">Send</button>
-                </p>
+              <form name="contact" data-netlify="true" onSubmit={this.handleSubmit}>
+                <div className="field">
+                  <label className="label has-text-white">お名前</label>
+                  <div className="control">
+                    <input style={inputStyle} className="input" type="text" name="name" value={name} onChange={this.handleChange} />
+                  </div>
+                </div>
+                <div className="field">
+                  <label className="label has-text-white">メールアドレス</label>
+                  <div className="control">
+                    <input style={inputStyle} className="input" type="email" name="email" value={email} onChange={this.handleChange} />
+                  </div>
+                </div>
+                <div className="field">
+                  <label className="label has-text-white">内容</label>
+                  <div className="control">
+                    <textarea style={inputStyle} className="textarea" name="message" value={message} onChange={this.handleChange} />
+                  </div>
+                </div>
+                <div className="field">
+                  <div className="control">
+                    <button className="button is-dark is-inverted is-outlined" type="submit">送信</button>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
