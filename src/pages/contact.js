@@ -55,26 +55,26 @@ class ContactPage extends Component {
               </h1>
               <form name="contact" data-netlify="true" onSubmit={this.handleSubmit}>
                 <div className="field">
-                  <label className="label has-text-white">Name</label>
+                  <label className="label has-text-white">お名前</label>
                   <div className="control">
                     <input style={inputStyle} className="input" type="text" name="name" value={name} onChange={this.handleChange} />
                   </div>
                 </div>
                 <div className="field">
-                  <label className="label has-text-white">Email</label>
+                  <label className="label has-text-white">メールアドレス</label>
                   <div className="control">
                     <input style={inputStyle} className="input" type="email" name="email" value={email} onChange={this.handleChange} />
                   </div>
                 </div>
                 <div className="field">
-                  <label className="label has-text-white">Message</label>
+                  <label className="label has-text-white">内容</label>
                   <div className="control">
                     <textarea style={inputStyle} className="textarea" name="message" value={message} onChange={this.handleChange} />
                   </div>
                 </div>
                 <div className="field">
                   <div className="control">
-                    <button className="button is-dark is-inverted is-outlined" type="submit">Send</button>
+                    <button className="button is-dark is-inverted is-outlined" type="submit">送信</button>
                   </div>
                 </div>
               </form>
