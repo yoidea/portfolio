@@ -47,24 +47,29 @@ class ContactPage extends Component {
                 お問い合わせ
               </h1>
               <form name="contact" data-netlify="true" onSubmit={this.handleSubmit}>
-                <p>
-                  <label>
-                    Name: <input type="text" name="name" value={name} onChange={this.handleChange} />
-                  </label>
-                </p>
-                <p>
-                  <label>
-                    Email: <input type="email" name="email" value={email} onChange={this.handleChange} />
-                  </label>
-                </p>
-                <p>
-                  <label>
-                    Message: <textarea name="message" value={message} onChange={this.handleChange} />
-                  </label>
-                </p>
-                <p>
-                  <button type="submit">Send</button>
-                </p>
+                <div className="field">
+                  <label className="label">Name</label>
+                  <div className="control">
+                    <input className="input" type="text" name="name" value={name} onChange={this.handleChange} />
+                  </div>
+                </div>
+                <div className="field">
+                  <label className="label">Email</label>
+                  <div className="control">
+                    <input className="input" type="email" name="email" value={email} onChange={this.handleChange} />
+                  </div>
+                </div>
+                <div className="field">
+                  <label className="label">Message</label>
+                  <div className="control">
+                    <textarea className="textarea" name="message" value={message} onChange={this.handleChange} />
+                  </div>
+                </div>
+                <div className="field">
+                  <div className="control">
+                    <button className="button" type="submit">Send</button>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
