@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Link } from "gatsby"
 
 import Layout from "../components/layout"
+import Hero from "../components/hero"
 import SEO from "../components/seo"
 import Confetti from "../components/confetti"
 
@@ -86,13 +87,11 @@ class IndexPage extends Component {
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
         {message}
-        <section className="hero is-success is-fullheight color-change-2x">
-          <div className="hero-body">
-            <div className="container has-text-centered">
-              {text}
-            </div>
+        <Hero className="color-change-2x">
+          <div className="has-text-centered">
+            {text}
           </div>
-        </section>
+        </Hero>
       </Layout>
     )
   }
