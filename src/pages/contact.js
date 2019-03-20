@@ -34,10 +34,17 @@ class ContactPage extends Component {
 
   render() {
     const { name, email, message } = this.state
+    const inputStyle = {
+      backgroundColor: "rgba(0,0,0,0.2)",
+      color: "#fff",
+      borderWidth: "2px"
+    }
     return (
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-        <section className="hero is-success is-fullheight">
+        <section className="hero is-success is-fullheight"
+          style={{backgroundColor: "#607d8b"}}
+        >
           <div className="hero-body">
             <div className="container">
               <h1 className="title is-size-2" style={{
@@ -48,26 +55,26 @@ class ContactPage extends Component {
               </h1>
               <form name="contact" data-netlify="true" onSubmit={this.handleSubmit}>
                 <div className="field">
-                  <label className="label">Name</label>
+                  <label className="label has-text-white">Name</label>
                   <div className="control">
-                    <input className="input" type="text" name="name" value={name} onChange={this.handleChange} />
+                    <input style={inputStyle} className="input" type="text" name="name" value={name} onChange={this.handleChange} />
                   </div>
                 </div>
                 <div className="field">
-                  <label className="label">Email</label>
+                  <label className="label has-text-white">Email</label>
                   <div className="control">
-                    <input className="input" type="email" name="email" value={email} onChange={this.handleChange} />
+                    <input style={inputStyle} className="input" type="email" name="email" value={email} onChange={this.handleChange} />
                   </div>
                 </div>
                 <div className="field">
-                  <label className="label">Message</label>
+                  <label className="label has-text-white">Message</label>
                   <div className="control">
-                    <textarea className="textarea" name="message" value={message} onChange={this.handleChange} />
+                    <textarea style={inputStyle} className="textarea" name="message" value={message} onChange={this.handleChange} />
                   </div>
                 </div>
                 <div className="field">
                   <div className="control">
-                    <button className="button" type="submit">Send</button>
+                    <button className="button is-dark is-inverted is-outlined" type="submit">Send</button>
                   </div>
                 </div>
               </form>
