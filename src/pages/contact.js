@@ -46,7 +46,7 @@ class ContactPage extends Component {
               }}>
                 お問い合わせ
               </h1>
-              <form name="contact" netlify onSubmit={this.handleSubmit}>
+              <form name="contact" data-netlify="true" onSubmit={this.handleSubmit}>
                 <p>
                   <label>
                     Name: <input type="text" name="name" value={name} onChange={this.handleChange} />
