@@ -5,6 +5,7 @@ import Layout from "../components/layout"
 import Hero from "../components/hero"
 import SEO from "../components/seo"
 import Timeline from "../components/timeline"
+import { Heading } from "../components/typography"
 
 import "./animista.css"
 
@@ -18,12 +19,7 @@ class AboutPage extends Component {
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
         <Hero color="#3f51b5">
-          <h1 className="title is-size-2" style={{
-            paddingLeft: "0.3em",
-            borderLeft: "solid 0.3em #fff"
-          }}>
-            何者なのか
-          </h1>
+          <Heading>何者なのか</Heading>
           <p className="subtitle">機械学習をかじっている学生です。音楽、映像、webページ、何でも作ります。</p>
           <p className="subtitle">コードを書いたり💻、弾いたり🎸するのが好きです。</p>
           <div className="has-text-centered">
@@ -31,12 +27,7 @@ class AboutPage extends Component {
           </div>
         </Hero>
         <Hero color="#2196f3" name="academicbg">
-          <h1 className="title is-size-2" style={{
-            paddingLeft: "0.3em",
-            borderLeft: "solid 0.3em #fff"
-          }}>
-            学歴
-          </h1>
+          <Heading>学歴</Heading>
           <Timeline date="2010" sub="在上海日本国総領事館付属">
             <a target="_blank" href="http://www.srx2.net.cn/">上海日本人学校</a> 虹橋校
           </Timeline>
@@ -54,12 +45,7 @@ class AboutPage extends Component {
           </div>
         </Hero>
         <Hero color="#00bcd4" name="career">
-          <h1 className="title is-size-2" style={{
-            paddingLeft: "0.3em",
-            borderLeft: "solid 0.3em #fff"
-          }}>
-            職歴
-          </h1>
+          <Heading>職歴</Heading>
           <Timeline date="2016" sub="株式会社創造学園">
             エディック個別西神校
           </Timeline>

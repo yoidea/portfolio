@@ -44,12 +44,7 @@ class ContactPage extends Component {
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
         <Hero color="#607d8b">
-          <h1 className="title is-size-2" style={{
-            paddingLeft: "0.3em",
-            borderLeft: "solid 0.3em #fff"
-          }}>
-            お問い合わせ
-          </h1>
+          <Heading>お問い合わせ</Heading>
           <form name="contact" data-netlify="true" onSubmit={this.handleSubmit}>
             <div className="field">
               <label className="label has-text-white">お名前</label>
