@@ -1,3 +1,5 @@
+import React, { Component } from "react"
+
 class Progress {
   constructor(param = {}) {
     this.timestamp        = null;
@@ -160,4 +162,34 @@ class Confetti {
   }
 }
 
-export default Confetti
+class ConfettiLayer extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount() {
+    const DURATION = 20000
+    const LENGTH = 200
+    new Confetti({
+      width    : window.innerWidth,
+      height   : window.innerHeight,
+      length   : LENGTH,
+      duration : DURATION
+    })
+    setTimeout(() => {
+      new Confetti({
+        width    : window.innerWidth,
+        height   : window.innerHeight,
+        length   : LENGTH,
+        duration : DURATION
+      })
+    }, DURATION / 2)
+    window.addEventListener('resize', this.eventHandler)
+  }
+
+  render() {
+    return ""
+  }
+}
+
+export default ConfettiLayer

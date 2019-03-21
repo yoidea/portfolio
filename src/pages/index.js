@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import Hero from "../components/hero"
+import Message from "../components/message"
 import SEO from "../components/seo"
 import Confetti from "../components/confetti"
 
@@ -12,33 +13,11 @@ class IndexPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isload: true,
-      message: true
+      isload: true
     }
     setTimeout(() => {
       this.setState({ isload: false })
     }, 1000)
-  }
-
-  componentDidMount() {
-    // confetti settings
-    const DURATION = 20000
-    const LENGTH = 200
-    new Confetti({
-      width    : window.innerWidth,
-      height   : window.innerHeight,
-      length   : LENGTH,
-      duration : DURATION
-    })
-    setTimeout(() => {
-      new Confetti({
-        width    : window.innerWidth,
-        height   : window.innerHeight,
-        length   : LENGTH,
-        duration : DURATION
-      })
-    }, DURATION / 2)
-    window.addEventListener('resize', this.eventHandler)
   }
 
   render() {
@@ -66,27 +45,11 @@ class IndexPage extends Component {
         </h1>
       )
     }
-    let message = (
-      <div className="container" style={{
-        position: "fixed",
-        top: "3rem",
-        left: "0",
-        right: "0",
-        padding: "1rem"
-      }}>
-        <div className="notification has-text-centered is-danger">
-          <button className="delete" onClick={() => {this.setState({ message: false })}}></button>
-          <p className="title">🎉進級しました🎉</p>
-        </div>
-      </div>
-    )
-    if (!this.state.message) {
-      message = ""
-    }
     return (
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-        {message}
+        <Confetti />
+        <Message className="is-danger">🎉進級しました🎉</Message>
         <Hero className="color-change-2x">
           <div className="has-text-centered">
             {text}
