@@ -21,6 +21,9 @@ const Footer = () => (
         <li><Link className="has-text-white" to="/about" style={{
           borderBottom: "none"
         }}>About</Link></li>
+        <li><Link className="has-text-white" to="/works" style={{
+          borderBottom: "none"
+        }}>Works</Link></li>
         <li><Link className="has-text-white" to="/contact" style={{
           borderBottom: "none"
         }}>Contact</Link></li>
