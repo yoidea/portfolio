@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import Hero from "../components/hero"
+import Message from "../components/message"
 import SEO from "../components/seo"
 import { Heading } from "../components/typography"
 
@@ -44,6 +45,7 @@ class ContactPage extends Component {
     return (
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+        <Message className="is-primary">お急ぎの方は肉声を私に向けてベースバンド伝送するのが確実です。</Message>
         <Hero color="#607d8b">
           <Heading>お問い合わせ</Heading>
           <form name="contact" data-netlify="true" onSubmit={this.handleSubmit}>
