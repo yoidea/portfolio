@@ -45,7 +45,9 @@ class ContactPage extends Component {
     return (
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-        <Message className="is-primary">お急ぎの方は肉声を私に向けてベースバンド伝送するのが確実です。</Message>
+        <Message className="is-primary">
+          <p className="subtitle">お急ぎの方は肉声を私に向けてベースバンド伝送するのが確実です。</p>
+        </Message>
         <Hero color="#607d8b">
           <Heading>お問い合わせ</Heading>
           <form name="contact" data-netlify="true" onSubmit={this.handleSubmit}>

@@ -19,7 +19,7 @@ class Message extends Component {
       }}>
         <div className={`notification has-text-centered ${this.props.className}`}>
           <button className="delete" onClick={() => {this.setState({ display: false })}}></button>
-          <p className="title">{this.props.children}</p>
+          {this.props.children}
         </div>
       </div>
     ) : ""

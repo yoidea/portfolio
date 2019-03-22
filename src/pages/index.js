@@ -49,7 +49,9 @@ class IndexPage extends Component {
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
         <Confetti />
-        <Message className="is-danger">🎉進級しました🎉</Message>
+        <Message className="is-danger">
+          <p className="title">🎉進級しました🎉</p>
+        </Message>
         <Hero className="color-change-2x">
           <div className="has-text-centered">
             {text}
