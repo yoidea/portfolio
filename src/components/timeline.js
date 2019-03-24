@@ -5,16 +5,16 @@ import "./timeline.css";
 
 const Timeline = ({ date, sub, children }) => (
   <div>
-    <div class="columns">
-      <div class="column is-2">
-        <div class="timeline-date is-hidden-touch">
+    <div className="columns">
+      <div className="column is-2">
+        <div className="timeline-date is-hidden-touch">
           <p>{date}</p>
         </div>
       </div>
-      <div class="column">
-        <div class="timeline-content">
-          <p class="sub">{sub}</p>
-          <p class="main">{children}</p>
+      <div className="column">
+        <div className="timeline-content">
+          <p className="sub">{sub}</p>
+          <p className="main">{children}</p>
         </div>
       </div>
     </div>
