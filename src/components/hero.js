@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 const Hero = ({ className, color, name, children }) => (
   <section
@@ -12,6 +12,6 @@ const Hero = ({ className, color, name, children }) => (
       <div className="container">{children}</div>
     </div>
   </section>
-)
+);
 
-export default Hero
+export default Hero;

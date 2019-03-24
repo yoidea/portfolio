@@ -1,65 +1,65 @@
-import React, { Component } from "react"
+import { Component } from "react";
 
 class Progress {
   constructor(param = {}) {
-    this.timestamp = null
-    this.duration = param.duration || Progress.CONST.DURATION
-    this.progress = 0
-    this.delta = 0
-    this.progress = 0
-    this.isLoop = !!param.isLoop
+    this.timestamp = null;
+    this.duration = param.duration || Progress.CONST.DURATION;
+    this.progress = 0;
+    this.delta = 0;
+    this.progress = 0;
+    this.isLoop = !!param.isLoop;
 
-    this.reset()
+    this.reset();
   }
 
   static get CONST() {
     return {
       DURATION: 1000,
-    }
+    };
   }
 
   reset() {
-    this.timestamp = null
+    this.timestamp = null;
   }
 
   start(now) {
-    this.timestamp = now
+    this.timestamp = now;
   }
 
   tick(now) {
     if (this.timestamp) {
-      this.delta = now - this.timestamp
-      this.progress = Math.min(this.delta / this.duration, 1)
+      this.delta = now - this.timestamp;
+      this.progress = Math.min(this.delta / this.duration, 1);
 
       if (this.progress >= 1 && this.isLoop) {
-        this.start(now)
+        this.start(now);
       }
 
-      return this.progress
+      return this.progress;
     } else {
-      return 0
+      return 0;
     }
   }
 }
 
 class Confetti {
   constructor(param) {
-    this.parent = param.elm || document.body
-    this.canvas = document.createElement("canvas")
-    this.ctx = this.canvas.getContext("2d")
-    this.width = param.width || this.parent.offsetWidth
-    this.height = param.height || this.parent.offsetHeight
-    this.length = param.length || Confetti.CONST.PAPER_LENGTH
-    this.yRange = param.yRange || this.height * 2
+    this.parent = param.elm || document.body;
+    this.canvas = document.createElement("canvas");
+    this.ctx = this.canvas.getContext("2d");
+    this.width = param.width || this.parent.offsetWidth;
+    this.height = param.height || this.parent.offsetHeight;
+    this.length = param.length || Confetti.CONST.PAPER_LENGTH;
+    this.yRange = param.yRange || this.height * 2;
     this.progress = new Progress({
       duration: param.duration,
       isLoop: true,
-    })
+    });
     this.rotationRange =
-      typeof param.rotationLength === "number" ? param.rotationRange : 10
+      typeof param.rotationLength === "number" ? param.rotationRange : 10;
     this.speedRange =
-      typeof param.speedRange === "number" ? param.speedRange : 10
-    this.sprites = []
+      typeof param.speedRange === "number" ? param.speedRange : 10;
+    this.sprites = [];
 
     this.canvas.style.cssText = [
       "display: block",
@@ -67,16 +67,16 @@ class Confetti {
       "top: 0",
       "left: 0",
       "pointer-events: none",
-    ].join(";")
+    ].join(";");
 
-    this.render = this.render.bind(this)
+    this.render = this.render.bind(this);
 
-    this.build()
+    this.build();
 
-    this.parent.appendChild(this.canvas)
-    this.progress.start(performance.now())
+    this.parent.appendChild(this.canvas);
+    this.progress.start(performance.now());
 
-    requestAnimationFrame(this.render)
+    requestAnimationFrame(this.render);
   }
 
   static get CONST() {
@@ -107,52 +107,53 @@ class Confetti {
         "#BDBDBD",
         "#78909C",
       ],
-    }
+    };
   }
 
   build() {
     for (let i = 0; i < this.length; ++i) {
       let canvas = document.createElement("canvas"),
-        ctx = canvas.getContext("2d")
+        ctx = canvas.getContext("2d");
 
-      canvas.width = Confetti.CONST.SPRITE_WIDTH
-      canvas.height = Confetti.CONST.SPRITE_HEIGHT
+      canvas.width = Confetti.CONST.SPRITE_WIDTH;
+      canvas.height = Confetti.CONST.SPRITE_HEIGHT;
 
       canvas.position = {
         initX: Math.random() * this.width,
         initY: -canvas.height - Math.random() * this.yRange,
-      }
+      };
 
       canvas.rotation =
-        this.rotationRange / 2 - Math.random() * this.rotationRange
-      canvas.speed = this.speedRange / 2 + Math.random() * (this.speedRange / 2)
+        this.rotationRange / 2 - Math.random() * this.rotationRange;
+      canvas.speed =
+        this.speedRange / 2 + Math.random() * (this.speedRange / 2);
 
-      ctx.save()
+      ctx.save();
       ctx.fillStyle =
         Confetti.CONST.COLORS[
           (Math.random() * Confetti.CONST.COLORS.length) | 0
-        ]
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-      ctx.restore()
+        ];
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
 
-      this.sprites.push(canvas)
+      this.sprites.push(canvas);
     }
   }
 
   render(now) {
-    let progress = this.progress.tick(now)
+    let progress = this.progress.tick(now);
 
-    this.canvas.width = this.width
-    this.canvas.height = this.height
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
 
     for (let i = 0; i < this.length; ++i) {
-      this.ctx.save()
+      this.ctx.save();
       this.ctx.translate(
         this.sprites[i].position.initX +
           this.sprites[i].rotation * Confetti.CONST.ROTATION_RATE * progress,
         this.sprites[i].position.initY + progress * (this.height + this.yRange)
-      )
-      this.ctx.rotate(this.sprites[i].rotation)
+      );
+      this.ctx.rotate(this.sprites[i].rotation);
       this.ctx.drawImage(
         this.sprites[i],
         (-Confetti.CONST.SPRITE_WIDTH *
@@ -162,42 +163,38 @@ class Confetti {
         Confetti.CONST.SPRITE_WIDTH *
           Math.abs(Math.sin(progress * Math.PI * 2 * this.sprites[i].speed)),
         Confetti.CONST.SPRITE_HEIGHT
-      )
-      this.ctx.restore()
+      );
+      this.ctx.restore();
     }
 
-    requestAnimationFrame(this.render)
+    requestAnimationFrame(this.render);
   }
 }
 
 class ConfettiLayer extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
-    const DURATION = 20000
-    const LENGTH = 200
+    const DURATION = 20000;
+    const LENGTH = 200;
     new Confetti({
       width: window.innerWidth,
       height: window.innerHeight,
       length: LENGTH,
       duration: DURATION,
-    })
+    });
     setTimeout(() => {
       new Confetti({
         width: window.innerWidth,
         height: window.innerHeight,
         length: LENGTH,
         duration: DURATION,
-      })
-    }, DURATION / 2)
-    window.addEventListener("resize", this.eventHandler)
+      });
+    }, DURATION / 2);
+    window.addEventListener("resize", this.eventHandler);
   }
 
   render() {
-    return ""
+    return "";
   }
 }
 
-export default ConfettiLayer
+export default ConfettiLayer;

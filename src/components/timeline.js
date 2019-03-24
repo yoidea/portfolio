@@ -1,6 +1,6 @@
-import React from "react"
+import React from "react";
 
-import "./timeline.css"
+import "./timeline.css";
 
 const Timeline = ({ date, sub, children }) => (
   <div>
@@ -18,6 +18,6 @@ const Timeline = ({ date, sub, children }) => (
       </div>
     </div>
   </div>
-)
+);
 
-export default Timeline
+export default Timeline;

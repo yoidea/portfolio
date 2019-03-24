@@ -1,11 +1,11 @@
-import React, { Component } from "react"
+import React, { Component } from "react";
 
 class Message extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       display: true,
-    }
+    };
   }
 
   render() {
@@ -26,7 +26,7 @@ class Message extends Component {
           <button
             className="delete"
             onClick={() => {
-              this.setState({ display: false })
+              this.setState({ display: false });
             }}
           />
           {this.props.children}
@@ -34,8 +34,8 @@ class Message extends Component {
       </div>
     ) : (
       ""
-    )
+    );
   }
 }
 
-export default Message
+export default Message;

@@ -1,19 +1,14 @@
-import React, { Component } from "react"
-import { Link } from "gatsby"
+import React, { Component } from "react";
 
-import Layout from "../components/layout"
-import Hero from "../components/hero"
-import SEO from "../components/seo"
-import { Heading } from "../components/typography"
+import Layout from "../components/layout";
+import Hero from "../components/hero";
+import SEO from "../components/seo";
+import { Heading } from "../components/typography";
 
-import "./animista.css"
-import smat from "../images/smat_thumbnail.png"
+import "./animista.css";
+import smat from "../images/smat_thumbnail.png";
 
 class WorksPage extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
       <Layout>
@@ -23,7 +18,7 @@ class WorksPage extends Component {
           <div class="columns is-desktop">
             <div class="column is-4">
               <figure class="image is-4by3">
-                <img src={smat} />
+                <img src={smat} alt="Smart Teach" />
               </figure>
             </div>
             <div class="column">
@@ -40,6 +35,7 @@ class WorksPage extends Component {
               <p>
                 <a
                   target="_blank"
+                  rel="noopener noreferrer"
                   href="https://smat-dev.herokuapp.com/"
                   className="button is-danger is-inverted is-outlined"
                 >
@@ -50,8 +46,8 @@ class WorksPage extends Component {
           </div>
         </Hero>
       </Layout>
-    )
+    );
   }
 }
 
-export default WorksPage
+export default WorksPage;

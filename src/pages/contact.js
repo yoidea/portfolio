@@ -1,24 +1,23 @@
-import React, { Component } from "react"
-import { Link } from "gatsby"
+import React, { Component } from "react";
 
-import Layout from "../components/layout"
-import Hero from "../components/hero"
-import Message from "../components/message"
-import SEO from "../components/seo"
-import { Heading } from "../components/typography"
+import Layout from "../components/layout";
+import Hero from "../components/hero";
+import Message from "../components/message";
+import SEO from "../components/seo";
+import { Heading } from "../components/typography";
 
-import "./animista.css"
+import "./animista.css";
 
 const encode = data => {
   return Object.keys(data)
     .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&")
-}
+    .join("&");
+};
 
 class ContactPage extends Component {
   constructor(props) {
-    super(props)
-    this.state = { name: "", email: "", message: "" }
+    super(props);
+    this.state = { name: "", email: "", message: "" };
   }
 
   handleSubmit = e => {
@@ -28,20 +27,20 @@ class ContactPage extends Component {
       body: encode({ "form-name": "contact", ...this.state }),
     })
       .then(() => alert("Success!"))
-      .catch(error => alert(error))
+      .catch(error => alert(error));
 
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
-  handleChange = e => this.setState({ [e.target.name]: e.target.value })
+  handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    const { name, email, message } = this.state
+    const { name, email, message } = this.state;
     const inputStyle = {
       backgroundColor: "rgba(0,0,0,0.2)",
       color: "#fff",
       borderWidth: "2px",
-    }
+    };
     return (
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
@@ -104,8 +103,8 @@ class ContactPage extends Component {
           </form>
         </Hero>
       </Layout>
-    )
+    );
   }
 }
 
-export default ContactPage
+export default ContactPage;

@@ -5,18 +5,17 @@
  * See: https://www.gatsbyjs.org/docs/static-query/
  */
 
-import React from "react"
-import PropTypes from "prop-types"
-import { StaticQuery, graphql, Link } from "gatsby"
+import React from "react";
+import PropTypes from "prop-types";
+import { StaticQuery, graphql } from "gatsby";
 
-import Header from "./header"
-import Footer from "./footer"
-import "bulma"
-import SweetScroll from "sweet-scroll"
-const sweetScroll = new SweetScroll({
+import Header from "./header";
+import Footer from "./footer";
+import "bulma";
+import SweetScroll from "sweet-scroll";
+new SweetScroll({
   trigger: "a[href^='#']",
-})
-// import "./layout.css"
+});
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -37,10 +36,10 @@ const Layout = ({ children }) => (
       </>
     )}
   />
-)
+);
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
-export default Layout
+export default Layout;

@@ -1,23 +1,22 @@
-import React, { Component } from "react"
-import { Link } from "gatsby"
+import React, { Component } from "react";
 
-import Layout from "../components/layout"
-import Hero from "../components/hero"
-import Message from "../components/message"
-import SEO from "../components/seo"
-import Confetti from "../components/confetti"
+import Layout from "../components/layout";
+import Hero from "../components/hero";
+import Message from "../components/message";
+import SEO from "../components/seo";
+import Confetti from "../components/confetti";
 
-import "./animista.css"
+import "./animista.css";
 
 class IndexPage extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       isload: true,
-    }
+    };
     setTimeout(() => {
-      this.setState({ isload: false })
-    }, 1000)
+      this.setState({ isload: false });
+    }, 1000);
   }
 
   render() {
@@ -30,6 +29,7 @@ class IndexPage extends Component {
         <a
           className="flip-in-hor-bottom-1 button is-success is-rounded is-inverted is-outlined"
           target="_blank"
+          rel="noopener noreferrer"
           href="https://twitter.com/yoidea"
         >
           Twitter
@@ -37,6 +37,7 @@ class IndexPage extends Component {
         <a
           className="flip-in-hor-bottom-2 button is-success is-rounded is-inverted is-outlined"
           target="_blank"
+          rel="noopener noreferrer"
           href="https://www.nicovideo.jp/user/48313347"
         >
           Niconico
@@ -44,32 +45,41 @@ class IndexPage extends Component {
         <a
           className="flip-in-hor-bottom-3 button is-success is-rounded is-inverted is-outlined"
           target="_blank"
+          rel="noopener noreferrer"
           href="https://github.com/yoidea"
         >
           Github
         </a>
       </div>
-    )
+    );
     if (this.state.isload) {
       text = (
         <h1 className="title text-blur-out" style={{ fontSize: "20em" }}>
           λ
         </h1>
-      )
+      );
     }
     return (
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
         <Confetti />
         <Message className="is-danger">
-          <p className="title">🎉進級しました🎉</p>
+          <p className="title">
+            <span role="img" aria-label="Tada">
+              🎉
+            </span>
+            進級しました
+            <span role="img" aria-label="Tada">
+              🎉
+            </span>
+          </p>
         </Message>
         <Hero className="color-change-2x">
           <div className="has-text-centered">{text}</div>
         </Hero>
       </Layout>
-    )
+    );
   }
 }
 
-export default IndexPage
+export default IndexPage;
