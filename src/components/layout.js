@@ -14,8 +14,8 @@ import Footer from "./footer"
 import "bulma"
 import SweetScroll from "sweet-scroll"
 const sweetScroll = new SweetScroll({
-  trigger: "a[href^='#']"
-});
+  trigger: "a[href^='#']",
+})
 // import "./layout.css"
 
 const Layout = ({ children }) => (

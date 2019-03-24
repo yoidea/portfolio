@@ -28,14 +28,24 @@ class WorksPage extends Component {
             </div>
             <div class="column">
               <h1 className="title">Smart Teach</h1>
-              <p>小テストの作成から出題、採点、分析までをサポートするアプリケーション</p>
+              <p>
+                小テストの作成から出題、採点、分析までをサポートするアプリケーション
+              </p>
               <p>チーム開発で主にフロントエンドを担当した。</p>
               <div class="tags are-medium">
                 <span class="tag is-dark">React</span>
                 <span class="tag is-dark">Rails</span>
                 <span class="tag is-dark">Heroku</span>
               </div>
-              <p><a target="_blank" href="https://smat-dev.herokuapp.com/" className="button is-danger is-inverted is-outlined">ページを見る</a></p>
+              <p>
+                <a
+                  target="_blank"
+                  href="https://smat-dev.herokuapp.com/"
+                  className="button is-danger is-inverted is-outlined"
+                >
+                  ページを見る
+                </a>
+              </p>
             </div>
           </div>
         </Hero>
