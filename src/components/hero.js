@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Hero = ({ className, color, name, children }) => (
   <section
@@ -13,5 +14,18 @@ const Hero = ({ className, color, name, children }) => (
     </div>
   </section>
 );
+
+Hero.propTypes = {
+  children: PropTypes.node.isRequired,
+  color: PropTypes.string,
+  name: PropTypes.string,
+  className: PropTypes.string,
+};
+
+Hero.defaultProps = {
+  color: `#607d8b`,
+  name: ``,
+  className: ``,
+};
 
 export default Hero;

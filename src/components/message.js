@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class Message extends Component {
   constructor(props) {
@@ -37,5 +38,14 @@ class Message extends Component {
     );
   }
 }
+
+Message.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+};
+
+Message.defaultProps = {
+  className: ``,
+};
 
 export default Message;
