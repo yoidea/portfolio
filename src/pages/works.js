@@ -31,6 +31,24 @@ class WorksPage extends Component {
         </div>
       ),
       loader: (
+        <div className="loader-inline ball-pulse-sync">
+          <div />
+          <div />
+          <div />
+        </div>
+      ),
+    });
+    const apiStatus = await fetch(
+      "https://smat-api-dev.herokuapp.com/v1/teachers/1/exams"
+    ).then(response => response.ok);
+    this.setState({
+      message: (
+        <div>
+          <span className="has-text-weight-bold">Webサーバー</span>
+          が心の準備をしています
+        </div>
+      ),
+      loader: (
         <div className="loader-inline line-scale">
           <div />
           <div />
@@ -40,9 +58,9 @@ class WorksPage extends Component {
         </div>
       ),
     });
-    const status = await fetch(
-      "https://smat-api-dev.herokuapp.com/v1/teachers/1/exams"
-    ).then(response => response.ok);
+    const pageStatus = await fetch("https://smat-dev.herokuapp.com").then(
+      response => response.ok
+    );
     window.open("https://smat-dev.herokuapp.com");
     this.setState({
       appStarting: false,

@@ -24,7 +24,7 @@ const Footer = () => (
             className="has-text-white"
             to="/"
             style={{
-              borderBottom: "solid 0.3em #fff",
+              borderRight: "solid thin #fff",
             }}
           >
             Home
@@ -35,7 +35,7 @@ const Footer = () => (
             className="has-text-white"
             to="/about"
             style={{
-              borderBottom: "none",
+              borderRight: "solid thin #fff",
             }}
           >
             About
@@ -46,7 +46,7 @@ const Footer = () => (
             className="has-text-white"
             to="/works"
             style={{
-              borderBottom: "none",
+              borderRight: "solid thin #fff",
             }}
           >
             Works
@@ -57,7 +57,7 @@ const Footer = () => (
             className="has-text-white"
             to="/contact"
             style={{
-              borderBottom: "none",
+              borderRight: "solid thin #fff",
             }}
           >
             Contact
