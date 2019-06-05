@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "loaders.css";
 
 import Layout from "../components/layout";
 import Hero from "../components/hero";
@@ -9,6 +10,47 @@ import "./animista.css";
 import smat from "../images/smat_thumbnail.png";
 
 class WorksPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      appStarting: false,
+      message: "",
+      loader: "",
+    };
+  }
+
+  handleClick = async () => {
+    this.setState({
+      appStarting: true,
+    });
+    this.setState({
+      message: (
+        <div>
+          <span className="has-text-weight-bold">APIサーバー</span>
+          を叩き起こしています
+        </div>
+      ),
+      loader: (
+        <div className="loader-inline line-scale">
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+      ),
+    });
+    const status = await fetch(
+      "https://smat-api-dev.herokuapp.com/v1/teachers/1/exams"
+    ).then(response => response.ok);
+    window.open("https://smat-dev.herokuapp.com");
+    this.setState({
+      appStarting: false,
+      message: "",
+      loader: "",
+    });
+  };
+
   render() {
     return (
       <Layout>
@@ -33,14 +75,17 @@ class WorksPage extends Component {
                 <span class="tag is-dark">Heroku</span>
               </div>
               <p>
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://smat-dev.herokuapp.com/"
+                <button
                   className="button is-danger is-inverted is-outlined"
+                  disabled={this.state.appStarting ? true : false}
+                  onClick={this.handleClick}
                 >
-                  ページを見る
-                </a>
+                  {this.state.appStarting ? "起動中..." : "アプリを起動する"}
+                </button>
+                <div className="has-text-centered" style={{ padding: "1.5em" }}>
+                  {this.state.loader}
+                  <p>{this.state.message}</p>
+                </div>
               </p>
             </div>
           </div>
