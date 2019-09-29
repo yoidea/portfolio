@@ -1,10 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "gatsby";
 
 import Layout from "../components/layout";
 import Hero from "../components/hero";
 import Message from "../components/message";
 import SEO from "../components/seo";
-import Confetti from "../components/confetti";
 
 import "./animista.css";
 
@@ -61,16 +61,18 @@ class IndexPage extends Component {
     }
     return (
       <Layout>
-        <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-        <Confetti />
-        <Message className="is-danger">
+        <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />     
+        <Message>
           <p className="title">
-            <span role="img" aria-label="Tada">
-              🎉
+            <span role="img" aria-label="Sparkles">
+              ✨
             </span>
-            進級しました
-            <span role="img" aria-label="Tada">
-              🎉
+              <Link className="has-text-link" to="/face">
+                顔についてのライセンス
+              </Link>
+              を追加しました
+            <span role="img" aria-label="Sparkles">
+              ✨
             </span>
           </p>
         </Message>
