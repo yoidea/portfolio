@@ -24,7 +24,12 @@
     "sweet-scroll": "^4.0.0"
   },
   "devDependencies": {
-    "prettier": "^1.16.4"
+    "babel-jest": "^24.9.0",
+    "babel-preset-gatsby": "^0.2.20",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.9.0",
+    "prettier": "^1.16.4",
+    "react-test-renderer": "^16.11.0"
   },
   "keywords": [
     "gatsby"
