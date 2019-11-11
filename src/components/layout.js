@@ -12,6 +12,7 @@ import { StaticQuery, graphql } from "gatsby";
 import Header from "./header";
 import Footer from "./footer";
 import "bulma";
+import "./layout.css";
 import SweetScroll from "sweet-scroll";
 new SweetScroll({
   trigger: "a[href^='#']",
