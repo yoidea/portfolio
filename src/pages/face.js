@@ -16,7 +16,7 @@ class FacePage extends Component {
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
         <Hero color="#607d8b">
-          <section>
+          <section className="block">
             <Heading>私の顔について</Heading>
 
             <div class="notification is-primary has-text-centered">
@@ -60,7 +60,7 @@ class FacePage extends Component {
             </p>
           </section>
 
-          <section>
+          <section className="block">
             <Heading>利用条件</Heading>
             <p>私の顔を利用するには以下の条件に従う必要があります。</p>
             <ol>
@@ -72,7 +72,7 @@ class FacePage extends Component {
             </ol>
           </section>
 
-          <section>
+          <section className="block">
             <Heading>非営利利用</Heading>
             <p>非営利で利用する限り以下のことが許可されます。</p>
             <ol>
@@ -83,7 +83,7 @@ class FacePage extends Component {
             </ol>
           </section>
 
-          <section>
+          <section className="block">
             <Heading>営利利用</Heading>
             <p>
               営利目的で顔を利用の場合は顔の利用料が発生します。お問合せからご相談ください。
