@@ -61,16 +61,16 @@ class IndexPage extends Component {
     }
     return (
       <Layout>
-        <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />     
+        <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
         <Message>
           <p className="title">
             <span role="img" aria-label="Sparkles">
               ✨
             </span>
-              <Link className="has-text-link" to="/face">
-                顔についてのライセンス
-              </Link>
-              を追加しました
+            <Link className="has-text-link" to="/face">
+              顔についてのライセンス
+            </Link>
+            を追加しました
             <span role="img" aria-label="Sparkles">
               ✨
             </span>

@@ -55,6 +55,17 @@ const Footer = () => (
         <li>
           <Link
             className="has-text-white"
+            to="/face"
+            style={{
+              borderRight: "solid thin #fff",
+            }}
+          >
+            Face
+          </Link>
+        </li>
+        <li>
+          <Link
+            className="has-text-white"
             to="/contact"
             style={{
               borderRight: "solid thin #fff",
