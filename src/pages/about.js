@@ -13,7 +13,7 @@ class AboutPage extends Component {
     return (
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-        <Hero color="#3f51b5">
+        <Hero color="#3f51b5" name="about">
           <Heading>何者なのか</Heading>
           <p className="subtitle">
             機械学習をかじっている学生です。音楽、映像、webページ、何でも作ります。
@@ -102,6 +102,14 @@ class AboutPage extends Component {
           <Timeline date="2018" sub="クックパッド株式会社">
             10 Day Tech インターンシップ
           </Timeline>
+          <div className="has-text-centered">
+            <a
+              className="button is-link is-rounded is-inverted is-outlined jello-horizontal"
+              href="#about"
+            >
+              &and;
+            </a>
+          </div>
         </Hero>
       </Layout>
     );
