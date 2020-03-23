@@ -31,7 +31,7 @@ jobs:
       uses: 8398a7/action-slack@v2
       with:
         status: ${{ job.status }}
-        author_name: GHA
+        author_name: CIおじさん
         icon_emoji: ':santa:'
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
