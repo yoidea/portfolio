@@ -16,7 +16,7 @@ class AboutPage extends Component {
         <Hero color="#3f51b5" name="about">
           <Heading>何者なのか</Heading>
           <p className="subtitle">
-            機械学習をかじっている学生です。音楽、映像、webページ、何でも作ります。
+            ソフトウェアエンジニアとして働いています。音楽、映像、webページ、何でも作ります。
           </p>
           <p className="subtitle">
             コードを書いたり
@@ -101,6 +101,9 @@ class AboutPage extends Component {
           </Timeline>
           <Timeline date="2018" sub="クックパッド株式会社">
             10 Day Tech インターンシップ
+          </Timeline>
+          <Timeline date="2020" sub="ヤフー株式会社">
+            サービス統括本部ID/PIM本部 開発1
           </Timeline>
           <div className="has-text-centered">
             <a
