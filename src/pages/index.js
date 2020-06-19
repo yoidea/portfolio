@@ -23,9 +23,7 @@ class IndexPage extends Component {
     let text = (
       <div>
         <h1 className="title is-size-2 text-focus-in">入江一帆（ラムダ）</h1>
-        <h2 className="subtitle text-focus-in-1s">
-          学生 / エンジニア志望 / 塾講師
-        </h2>
+        <h2 className="subtitle text-focus-in-1s">学士(工学) / エンジニア</h2>
         <a
           className="flip-in-hor-bottom-1 button is-success is-rounded is-inverted is-outlined"
           target="_blank"
@@ -38,17 +36,17 @@ class IndexPage extends Component {
           className="flip-in-hor-bottom-2 button is-success is-rounded is-inverted is-outlined"
           target="_blank"
           rel="noopener noreferrer"
+          href="https://www.youtube.com/channel/UC8g17oXkRt8buwQL8GU-NSw"
+        >
+          Youtube
+        </a>
+        <a
+          className="flip-in-hor-bottom-2 button is-success is-rounded is-inverted is-outlined"
+          target="_blank"
+          rel="noopener noreferrer"
           href="https://www.nicovideo.jp/user/48313347"
         >
           Niconico
-        </a>
-        <a
-          className="flip-in-hor-bottom-3 button is-success is-rounded is-inverted is-outlined"
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://github.com/yoidea"
-        >
-          Github
         </a>
       </div>
     );
@@ -62,20 +60,6 @@ class IndexPage extends Component {
     return (
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-        <Message>
-          <p className="title">
-            <span role="img" aria-label="Sparkles">
-              ✨
-            </span>
-            <Link className="has-text-link" to="/face">
-              顔についてのライセンス
-            </Link>
-            を追加しました
-            <span role="img" aria-label="Sparkles">
-              ✨
-            </span>
-          </p>
-        </Message>
         <Hero className="color-change-2x">
           <div className="has-text-centered">{text}</div>
         </Hero>
