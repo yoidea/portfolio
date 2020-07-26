@@ -103,7 +103,7 @@ class AboutPage extends Component {
             10 Day Tech インターンシップ
           </Timeline>
           <Timeline date="2020" sub="ヤフー株式会社">
-            サービス統括本部ID/PIM本部 開発1
+            サービス統括本部 ID/PIM本部 開発1部
           </Timeline>
           <div className="has-text-centered">
             <a
