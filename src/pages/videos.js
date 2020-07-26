@@ -113,7 +113,7 @@ class VideosPage extends Component {
           <p>
             リクエストが採用される可能性は低いかもしれませんが全て目を通しています。
           </p>
-          {false ? (
+          {this.state.submitted ? (
             <p>内容を送信しました。リクエストありがとうございます。</p>
           ) : (
             <form
