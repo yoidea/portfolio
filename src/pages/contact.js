@@ -17,7 +17,7 @@ const encode = data => {
 class ContactPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: "", email: "", message: "" };
+    this.state = { name: "", email: "", message: "", submitted: false };
   }
 
   handleSubmit = e => {
@@ -26,7 +26,9 @@ class ContactPage extends Component {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({ "form-name": "contact", ...this.state }),
     })
-      .then(() => alert("Success!"))
+      .then(() => {
+        this.setState({ submitted: true });
+      })
       .catch(error => alert(error));
 
     e.preventDefault();
@@ -51,56 +53,64 @@ class ContactPage extends Component {
         </Message>
         <Hero color="#607d8b">
           <Heading>お問い合わせ</Heading>
-          <form name="contact" data-netlify="true" onSubmit={this.handleSubmit}>
-            <div className="field">
-              <label className="label has-text-white">お名前</label>
-              <div className="control">
-                <input
-                  style={inputStyle}
-                  className="input"
-                  type="text"
-                  name="name"
-                  value={name}
-                  onChange={this.handleChange}
-                />
+          {this.state.submitted ? (
+            <p>内容を送信しました。お問い合わせありがとうございました。</p>
+          ) : (
+            <form
+              name="contact"
+              data-netlify="true"
+              onSubmit={this.handleSubmit}
+            >
+              <div className="field">
+                <label className="label has-text-white">お名前</label>
+                <div className="control">
+                  <input
+                    style={inputStyle}
+                    className="input"
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={this.handleChange}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="field">
-              <label className="label has-text-white">メールアドレス</label>
-              <div className="control">
-                <input
-                  style={inputStyle}
-                  className="input"
-                  type="email"
-                  name="email"
-                  value={email}
-                  onChange={this.handleChange}
-                />
+              <div className="field">
+                <label className="label has-text-white">メールアドレス</label>
+                <div className="control">
+                  <input
+                    style={inputStyle}
+                    className="input"
+                    type="email"
+                    name="email"
+                    value={email}
+                    onChange={this.handleChange}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="field">
-              <label className="label has-text-white">内容</label>
-              <div className="control">
-                <textarea
-                  style={inputStyle}
-                  className="textarea"
-                  name="message"
-                  value={message}
-                  onChange={this.handleChange}
-                />
+              <div className="field">
+                <label className="label has-text-white">内容</label>
+                <div className="control">
+                  <textarea
+                    style={inputStyle}
+                    className="textarea"
+                    name="message"
+                    value={message}
+                    onChange={this.handleChange}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="field">
-              <div className="control">
-                <button
-                  className="button is-dark is-inverted is-outlined"
-                  type="submit"
-                >
-                  送信
-                </button>
+              <div className="field">
+                <div className="control">
+                  <button
+                    className="button is-dark is-inverted is-outlined"
+                    type="submit"
+                  >
+                    送信
+                  </button>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          )}
         </Hero>
       </Layout>
     );
