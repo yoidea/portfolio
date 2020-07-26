@@ -33,7 +33,9 @@ class VideosPage extends Component {
           </p>
           <div class="columns is-desktop">
             <div class="column">
-              <h1 className="title">【騙されないで】画面の捏造ちょろ過ぎて草</h1>
+              <h1 className="title">
+                【騙されないで】画面の捏造ちょろ過ぎて草
+              </h1>
               <a
                 target="_blank"
                 rel="noopener noreferrer"
@@ -42,7 +44,7 @@ class VideosPage extends Component {
                 <figure class="image is-16by9">
                   <img src={thumbnail1} alt="Smart Teach" />
                 </figure>
-               </a>
+              </a>
             </div>
             <div class="column">
               <h1 className="title">【決定版】オンライン授業をサボる方法</h1>
@@ -57,7 +59,9 @@ class VideosPage extends Component {
               </a>
             </div>
             <div class="column">
-              <h1 className="title">【理系】超精密なフレンチトーストを作ろう</h1>
+              <h1 className="title">
+                【理系】超精密なフレンチトーストを作ろう
+              </h1>
               <a
                 target="_blank"
                 rel="noopener noreferrer"
