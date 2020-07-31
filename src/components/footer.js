@@ -44,12 +44,12 @@ const Footer = () => (
         <li>
           <Link
             className="has-text-white"
-            to="/works"
+            to="/videos"
             style={{
               borderRight: "solid thin #fff",
             }}
           >
-            Works
+            Videos
           </Link>
         </li>
         <li>
