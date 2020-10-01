@@ -19,15 +19,7 @@ class AboutPage extends Component {
             ソフトウェアエンジニアとして働いています。音楽、映像、webページ、何でも作ります。
           </p>
           <p className="subtitle">
-            コードを書いたり
-            <span role="img" aria-label="Laptop">
-              💻
-            </span>
-            、弾いたり
-            <span role="img" aria-label="Guitar">
-              🎸
-            </span>
-            するのが好きです。
+            コードを書いたりギターを弾いたりするのが好きです。
           </p>
           <div className="has-text-centered">
             <a
@@ -47,7 +39,7 @@ class AboutPage extends Component {
               href="http://www.srx2.net.cn/"
             >
               上海日本人学校
-            </a>{" "}
+            </a>
             虹橋校
           </Timeline>
           <Timeline date="2013" sub="神戸市立">
@@ -66,7 +58,7 @@ class AboutPage extends Component {
               href="http://www.kobe-kosen.ac.jp/"
             >
               工業高等専門学校
-            </a>{" "}
+            </a>
             電子工学科
           </Timeline>
           <Timeline date="2020" sub="国立">
@@ -76,7 +68,7 @@ class AboutPage extends Component {
               href="http://www.shinshu-u.ac.jp/"
             >
               信州大学
-            </a>{" "}
+            </a>
             工学部 電子情報システム工学科
           </Timeline>
           <div className="has-text-centered">
@@ -103,7 +95,7 @@ class AboutPage extends Component {
             10 Day Tech インターンシップ
           </Timeline>
           <Timeline date="2020" sub="ヤフー株式会社">
-            サービス統括本部 ID/PIM本部 開発1部
+            サービス統括部 PIM本部 開発1部
           </Timeline>
           <div className="has-text-centered">
             <a
