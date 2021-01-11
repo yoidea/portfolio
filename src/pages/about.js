@@ -82,6 +82,12 @@ class AboutPage extends Component {
         </Hero>
         <Hero color="#00bcd4" name="career">
           <Heading>職歴</Heading>
+          <Timeline date="2014" sub="株式会社ヤマダデンキ">
+            ヤマダ電機テックランド神戸垂水店
+          </Timeline>
+          <Timeline date="2015" sub="株式会社ダイエー">
+            ダイエー西神中央店
+          </Timeline>
           <Timeline date="2016" sub="株式会社創造学園">
             エディック個別西神校
           </Timeline>
@@ -96,6 +102,9 @@ class AboutPage extends Component {
           </Timeline>
           <Timeline date="2020" sub="ヤフー株式会社">
             サービス統括部 PIM本部 開発1部
+          </Timeline>
+          <Timeline date="2021" sub="滋慶学園グループ">
+            東京デザインテクノロジーセンター専門学校
           </Timeline>
           <div className="has-text-centered">
             <a
