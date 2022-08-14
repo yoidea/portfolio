@@ -64,50 +64,63 @@ class VideosPage extends Component {
           <p>
             プログラミングや電子工学、数学などに興味を持つきっかけになれると嬉しいです。
           </p>
-          <div class="columns is-desktop">
-            <div class="column">
-              <h1 className="title">
-                【騙されないで】画面の捏造ちょろ過ぎて草
-              </h1>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.youtube.com/watch?v=GXZZB5vO78c"
-              >
-                <figure class="image is-16by9">
-                  <img src={thumbnail1} alt="Smart Teach" />
-                </figure>
-              </a>
-            </div>
-            <div class="column">
-              <h1 className="title">【決定版】オンライン授業をサボる方法</h1>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.youtube.com/watch?v=YM12QR1m1O8"
-              >
-                <figure class="image is-16by9">
-                  <img src={thumbnail2} alt="Smart Teach" />
-                </figure>
-              </a>
-            </div>
-            <div class="column">
-              <h1 className="title">
-                【理系】超精密なフレンチトーストを作ろう
-              </h1>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.youtube.com/watch?v=G476yr41Jfw"
-              >
-                <figure class="image is-16by9">
-                  <img src={thumbnail3} alt="Smart Teach" />
-                </figure>
-              </a>
-            </div>
+          <div className="has-text-centered">
+            <a
+              className="button is-link is-rounded is-inverted is-outlined jello-horizontal"
+              href="#delay"
+            >
+              &or;
+            </a>
           </div>
         </Hero>
-        <Hero color="#e91e63">
+        <Hero color="#546e7a" name="delay">
+          <Heading>遅延証明書</Heading>
+          <p>ラムダ技術部では毎週土曜日18時に投稿予定の動画が10分以上遅れた場合、遅延証明書を掲載いたします。</p>
+          <p>遅延の証明が必要な際にダウンロードしてお使いください。</p>
+          <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <th>日時</th>
+                <th>タイトル</th>
+                <th>遅れ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2022年8月13日</td>
+                <td><a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://youtu.be/DXSQ_hkZyW8"
+                  >
+                    【特定厨】花火の動画から居場所を特定するのちょろすぎて草
+                  </a>
+                </td>
+                <td>
+                  <a 
+                    className="button is-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="/certificate/certificate_of_delay_2022-08-13.pdf"
+                  >
+                    210分
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>※ 遅延証明書が掲載されるまで時間を要する場合があります。</p>
+          <p>※ 18時投稿はベストエフォートです。</p>
+          <div className="has-text-centered">
+            <a
+              className="button is-link is-rounded is-inverted is-outlined jello-horizontal"
+              href="#request"
+            >
+              &or;
+            </a>
+          </div>
+        </Hero>
+        <Hero color="#e91e63" name="request">
           <Heading>リクエスト</Heading>
           <p>やってほしい題材や面白そうな題材があれば是非教えて下さい。</p>
           <p>
