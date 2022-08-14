@@ -22,7 +22,7 @@ class IndexPage extends Component {
   render() {
     let text = (
       <div>
-        <h1 className="title is-size-2 text-focus-in">入江一帆（ラムダ）</h1>
+        <h1 className="title is-size-2 text-focus-in">ラムダ技術部</h1>
         <h2 className="subtitle text-focus-in-1s">学士(工学) / エンジニア</h2>
         <a
           className="flip-in-hor-bottom-1 button is-success is-rounded is-inverted is-outlined"
@@ -38,15 +38,15 @@ class IndexPage extends Component {
           rel="noopener noreferrer"
           href="https://www.youtube.com/channel/UC8g17oXkRt8buwQL8GU-NSw"
         >
-          Youtube
+          YouTube
         </a>
         <a
           className="flip-in-hor-bottom-2 button is-success is-rounded is-inverted is-outlined"
           target="_blank"
           rel="noopener noreferrer"
-          href="https://www.nicovideo.jp/user/48313347"
+          href="https://www.tiktok.com/@yoidea"
         >
-          Niconico
+          TikTok
         </a>
       </div>
     );

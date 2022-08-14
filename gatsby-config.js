@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `入江一帆（ラムダ）`,
+    title: `【公式】ラムダ技術部`,
     description: `yoidea-portfolio`,
     author: `@yoidea`,
   },
