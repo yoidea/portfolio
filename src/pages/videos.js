@@ -87,6 +87,27 @@ class VideosPage extends Component {
             </thead>
             <tbody>
               <tr>
+                <td>2022年8月20日</td>
+                <td><a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.youtube.com/shorts/cyPCHMy15SI"
+                  >
+                    仕事を押し付け合うスマートスピーカーを作った
+                  </a>
+                </td>
+                <td>
+                  <a 
+                    className="button is-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="/certificate/certificate_of_delay_2022-08-20.pdf"
+                  >
+                    225分
+                  </a>
+                </td>
+              </tr>
+              <tr>
                 <td>2022年8月13日</td>
                 <td><a
                     target="_blank"
