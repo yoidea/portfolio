@@ -51,7 +51,7 @@ class ContactPage extends Component {
             お急ぎの方は肉声を私に向けてベースバンド伝送するのが確実です。
           </p>
         </Message>
-        <Hero color="#607d8b">
+        <Hero color="#607d8b" style={{marginTop: "90px"}}>
           <Heading>お問い合わせ</Heading>
           {this.state.submitted ? (
             <p>内容を送信しました。お問い合わせありがとうございました。</p>
