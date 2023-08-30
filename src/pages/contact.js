@@ -53,64 +53,7 @@ class ContactPage extends Component {
         </Message>
         <Hero color="#607d8b">
           <Heading>お問い合わせ</Heading>
-          {this.state.submitted ? (
-            <p>内容を送信しました。お問い合わせありがとうございました。</p>
-          ) : (
-            <form
-              name="contact"
-              data-netlify="true"
-              onSubmit={this.handleSubmit}
-            >
-              <div className="field">
-                <label className="label has-text-white">お名前</label>
-                <div className="control">
-                  <input
-                    style={inputStyle}
-                    className="input"
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={this.handleChange}
-                  />
-                </div>
-              </div>
-              <div className="field">
-                <label className="label has-text-white">メールアドレス</label>
-                <div className="control">
-                  <input
-                    style={inputStyle}
-                    className="input"
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={this.handleChange}
-                  />
-                </div>
-              </div>
-              <div className="field">
-                <label className="label has-text-white">内容</label>
-                <div className="control">
-                  <textarea
-                    style={inputStyle}
-                    className="textarea"
-                    name="message"
-                    value={message}
-                    onChange={this.handleChange}
-                  />
-                </div>
-              </div>
-              <div className="field">
-                <div className="control">
-                  <button
-                    className="button is-dark is-inverted is-outlined"
-                    type="submit"
-                  >
-                    送信
-                  </button>
-                </div>
-              </div>
-            </form>
-          )}
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfUA1wmUMO16H34eb7cAWQWrK-15MxDMJuTV-pOft2SSnod1A/viewform?embedded=true" width="640" height="1237" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
         </Hero>
       </Layout>
     );
