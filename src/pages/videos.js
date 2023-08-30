@@ -162,45 +162,6 @@ class VideosPage extends Component {
             </a>
           </div>
         </Hero>
-        <Hero color="#e91e63" name="request">
-          <Heading>リクエスト</Heading>
-          <p>やってほしい題材や面白そうな題材があれば是非教えて下さい。</p>
-          <p>
-            リクエストが採用される可能性は低いかもしれませんが全て目を通しています。
-          </p>
-          {this.state.submitted ? (
-            <p>内容を送信しました。リクエストありがとうございます。</p>
-          ) : (
-            <form
-              name="request"
-              data-netlify="true"
-              onSubmit={this.handleSubmit}
-            >
-              <div className="field">
-                <label className="label has-text-white">内容</label>
-                <div className="control">
-                  <textarea
-                    style={inputStyle}
-                    className="textarea"
-                    name="message"
-                    value={message}
-                    onChange={this.handleChange}
-                  />
-                </div>
-              </div>
-              <div className="field">
-                <div className="control">
-                  <button
-                    className="button is-dark is-inverted is-outlined"
-                    type="submit"
-                  >
-                    送信
-                  </button>
-                </div>
-              </div>
-            </form>
-          )}
-        </Hero>
       </Layout>
     );
   }
