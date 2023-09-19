@@ -13,7 +13,7 @@ export const Heading = ({ children }) => (
 );
 
 export const CodeBlock = ({ children }) => (
-  <div className="columns is-mobile is-centered">
+  <div className="columns is-mobile is-centered is-hidden-touch">
     <pre
       className="has-text-left is-size-3-fullhd is-size-4-desktop is-size-6"
       style={{
