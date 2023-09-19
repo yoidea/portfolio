@@ -1,3 +1,4 @@
+import { Link } from "gatsby";
 import React, { Component } from "react";
 
 import Layout from "../components/layout";
@@ -20,8 +21,17 @@ class ContactPage extends Component {
       <Layout>
         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
         <Hero color="#607d8b">
-          <div style={{ height: "700px" }}>
+          <div style={{ height: "700px", marginBottom: "1em" }}>
             <iframe src={source} style={{ height: "100%", width: "100%" }} frameborder="0">読み込んでいます…</iframe>
+          </div>
+          <div className="has-text-centered">
+            <Link to="/pgp">
+              <a
+                className="button is-link is-rounded is-inverted is-outlined"
+              >
+                PGP公開鍵はこちら
+              </a>
+            </Link>
           </div>
         </Hero>
       </Layout>
