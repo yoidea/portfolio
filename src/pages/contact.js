@@ -32,6 +32,13 @@ class ContactPage extends Component {
                 PGP公開鍵はこちら
               </a>
             </Link>
+            <Link to="/guidelines">
+              <a
+                className="button is-link is-rounded is-inverted is-outlined"
+              >
+                動画利用ガイドライン
+              </a>
+            </Link>
           </div>
         </Hero>
       </Layout>
