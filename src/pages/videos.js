@@ -87,6 +87,27 @@ class VideosPage extends Component {
             </thead>
             <tbody>
               <tr>
+                <td>2022年12月17日</td>
+                <td><a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://youtu.be/1SOgvM_zrRw"
+                  >
+                    【超頑丈】お菓子の家に耐震工事を施してみた
+                  </a>
+                </td>
+                <td>
+                  <a
+                    className="button is-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="/certificate/certificate_of_delay_2022-12-17.pdf"
+                  >
+                    1260分
+                  </a>
+                </td>
+              </tr>
+              <tr>
                 <td>2022年11月8日</td>
                 <td><a
                     target="_blank"
