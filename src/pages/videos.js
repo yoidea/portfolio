@@ -24,10 +24,16 @@ class VideosPage extends Component {
   componentDidMount() {
     fetch(API_PATH)
       .then(response => {
-        if (!response.ok) {
-          throw new Error("遅延証明書を取得できませんでした。");
-        }
-        return response.json();
+        return response.json().then(data => {
+          if (!response.ok) {
+            throw new Error(
+              data && data.error
+                ? `遅延証明書を取得できませんでした: ${data.error}`
+                : "遅延証明書を取得できませんでした。"
+            );
+          }
+          return data;
+        });
       })
       .then(data => {
         this.setState({

@@ -39,9 +39,9 @@ exports.handler = async function handler(event) {
       return jsonResponse({ ok: true, certificate });
     }
 
-    const latest = parseJson(await store.get("latest.json"), null);
+    const latest = parseJson(await safeGet(store, "latest.json"), null);
     const certificates = parseJson(
-      await store.get("certificates/index.json"),
+      await safeGet(store, "certificates/index.json"),
       []
     );
 
@@ -61,3 +61,19 @@ exports.handler = async function handler(event) {
     );
   }
 };
+
+async function safeGet(store, key) {
+  try {
+    return await store.get(key);
+  } catch (error) {
+    if (
+      error &&
+      (error.name === "BlobsEntryNotFoundError" ||
+        error.status === 404 ||
+        error.statusCode === 404)
+    ) {
+      return null;
+    }
+    throw error;
+  }
+}
