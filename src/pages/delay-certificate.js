@@ -4,6 +4,7 @@ import { Link } from "gatsby";
 import Layout from "../components/layout";
 import Hero from "../components/hero";
 import SEO from "../components/seo";
+import { getMockCertificate } from "../lib/delay-certificate-mocks";
 
 import "./animista.css";
 
@@ -22,6 +23,17 @@ class DelayCertificatePage extends Component {
   componentDidMount() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
+    const mockMode = params.get("mock");
+    const mockCertificate = getMockCertificate(mockMode, id);
+
+    if (mockCertificate) {
+      this.setState({
+        certificate: mockCertificate,
+        loading: false,
+        error: null,
+      });
+      return;
+    }
 
     if (!id) {
       this.setState({

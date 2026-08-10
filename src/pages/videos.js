@@ -5,6 +5,10 @@ import Layout from "../components/layout";
 import Hero from "../components/hero";
 import SEO from "../components/seo";
 import { Heading } from "../components/typography";
+import {
+  getDelayCertificateMock,
+  getMockQuerySuffix,
+} from "../lib/delay-certificate-mocks";
 
 import "./animista.css";
 
@@ -18,10 +22,26 @@ class VideosPage extends Component {
       latest: null,
       loadingCertificates: true,
       certificateError: null,
+      mockMode: null,
     };
   }
 
   componentDidMount() {
+    const params = new URLSearchParams(window.location.search);
+    const mockMode = params.get("mock");
+    const mock = getDelayCertificateMock(mockMode);
+
+    if (mock) {
+      this.setState({
+        certificates: mock.certificates,
+        latest: mock.latest,
+        loadingCertificates: false,
+        certificateError: null,
+        mockMode,
+      });
+      return;
+    }
+
     fetch(API_PATH)
       .then(response => {
         return response.json().then(data => {
@@ -109,7 +129,7 @@ class VideosPage extends Component {
   }
 
   renderDelayStatus() {
-    const { latest } = this.state;
+    const { latest, mockMode } = this.state;
 
     if (!latest) {
       return null;
@@ -117,6 +137,7 @@ class VideosPage extends Component {
 
     return (
       <div className="notification is-dark">
+        {mockMode ? <p>開発用モック: {mockMode}</p> : null}
         <p>
           最新確認: {formatDateTime(latest.checkedAt)} / 状態:{" "}
           {statusLabel(latest.status)}
@@ -131,7 +152,12 @@ class VideosPage extends Component {
   }
 
   renderCertificates() {
-    const { certificates, loadingCertificates, certificateError } = this.state;
+    const {
+      certificates,
+      loadingCertificates,
+      certificateError,
+      mockMode,
+    } = this.state;
 
     if (loadingCertificates) {
       return <p>遅延証明書を読み込んでいます。</p>;
@@ -187,7 +213,7 @@ class VideosPage extends Component {
                   className="button is-primary"
                   to={`/delay-certificate?id=${encodeURIComponent(
                     certificate.id
-                  )}`}
+                  )}${getMockQuerySuffix(mockMode)}`}
                 >
                   表示
                 </Link>
