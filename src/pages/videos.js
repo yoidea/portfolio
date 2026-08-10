@@ -247,13 +247,13 @@ const delaySectionStyles = `
   padding: 1.25rem 1.5rem;
 }
 #delay .delay-status-box.is-normal {
-  border-left-color: #8bc34a;
+  border-left-color: #009688;
 }
 #delay .delay-status-box.is-delayed {
-  border-left-color: #ffca28;
+  border-left-color: #ff9800;
 }
 #delay .delay-status-box.is-unknown {
-  border-left-color: #90a4ae;
+  border-left-color: #546e7a;
 }
 #delay .delay-status-heading {
   color: #455a64;
