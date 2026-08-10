@@ -111,13 +111,14 @@ class VideosPage extends Component {
           </div>
         </Hero>
         <Hero color="#546e7a" name="delay">
+          <style>{delaySectionStyles}</style>
           <Heading>遅延証明書</Heading>
+          {this.renderCurrentDelayStatus()}
           <p>
             ラムダ技術部では毎週土曜日18時に投稿予定の動画が10分以上遅れた場合、遅延証明書を掲載いたします。
             <br />
             遅延の証明が必要な際にダウンロードしてお使いください。
           </p>
-          {this.renderCurrentDelayStatus()}
           {this.renderCertificates()}
           <p>※ 18時投稿はベストエフォートです。</p>
           <div className="has-text-centered">
@@ -134,10 +135,10 @@ class VideosPage extends Component {
   }
 
   renderCurrentDelayStatus() {
-    const { latest, loadingCertificates, certificateError, mockMode } =
-      this.state;
+    const { latest, loadingCertificates, certificateError } = this.state;
 
     const isDelayed = latest && latest.status === "delayed";
+    const isNormal = latest && !isDelayed;
     const currentStatus = latest
       ? isDelayed
         ? formatDelayStatus(getEffectiveDelayMinutes(latest))
@@ -149,25 +150,13 @@ class VideosPage extends Component {
       : "確認中";
 
     return (
-      <section>
-        <h2 className="subtitle is-5">現在の遅延状況</h2>
-        {mockMode ? <p>開発用モック: {mockMode}</p> : null}
-        <table className="table is-bordered is-narrow is-fullwidth">
-          <thead>
-            <tr>
-              <th>投稿予定日時</th>
-              <th>現在の状況</th>
-              <th>最終確認</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{latest ? formatDateTime(latest.scheduledAt) : "-"}</td>
-              <td>{currentStatus}</td>
-              <td>{latest ? formatDateTime(latest.checkedAt) : "-"}</td>
-            </tr>
-          </tbody>
-        </table>
+      <section
+        className={`delay-status-box ${
+          isDelayed ? "is-delayed" : isNormal ? "is-normal" : "is-unknown"
+        }`}
+      >
+        <p className="delay-status-heading">現在の遅延状況</p>
+        <p className="delay-status-value">{currentStatus}</p>
       </section>
     );
   }
@@ -246,6 +235,47 @@ class VideosPage extends Component {
     );
   }
 }
+
+const delaySectionStyles = `
+#delay .delay-status-box {
+  background: #fff;
+  border-left: 0.55rem solid #90a4ae;
+  border-radius: 6px;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.16);
+  color: #263238;
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+}
+#delay .delay-status-box.is-normal {
+  border-left-color: #8bc34a;
+}
+#delay .delay-status-box.is-delayed {
+  border-left-color: #ffca28;
+}
+#delay .delay-status-box.is-unknown {
+  border-left-color: #90a4ae;
+}
+#delay .delay-status-heading {
+  color: #455a64;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin: 0 0 0.35rem;
+}
+#delay .delay-status-value {
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.25;
+  margin: 0;
+}
+@media screen and (max-width: 560px) {
+  #delay .delay-status-box {
+    padding: 1rem;
+  }
+  #delay .delay-status-value {
+    font-size: 1.55rem;
+  }
+}
+`;
 
 function formatDateTime(value) {
   if (!value) {
