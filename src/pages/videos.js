@@ -1,50 +1,87 @@
 import React, { Component } from "react";
+import { Link } from "gatsby";
 
 import Layout from "../components/layout";
 import Hero from "../components/hero";
 import SEO from "../components/seo";
 import { Heading } from "../components/typography";
+import {
+  getDelayCertificateMock,
+  getMockQuerySuffix,
+} from "../lib/delay-certificate-mocks";
 
 import "./animista.css";
-import thumbnail1 from "../images/yt_thumbnail1.png";
-import thumbnail2 from "../images/yt_thumbnail2.png";
-import thumbnail3 from "../images/yt_thumbnail3.png";
 
-const encode = data => {
-  return Object.keys(data)
-    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&");
-};
+const API_PATH = "/.netlify/functions/delay-certificates";
 
 class VideosPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { message: "", submitted: false };
+    this.state = {
+      certificates: [],
+      latest: null,
+      loadingCertificates: true,
+      certificateError: null,
+      mockMode: null,
+    };
   }
 
-  handleSubmit = e => {
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({ "form-name": "request", ...this.state }),
-    })
-      .then(() => {
-        this.setState({ submitted: true });
+  componentDidMount() {
+    const params = new URLSearchParams(window.location.search);
+    const mockMode = params.get("mock");
+    const mock = getDelayCertificateMock(mockMode);
+
+    if (mock) {
+      this.setState({
+        certificates: mock.certificates,
+        latest: mock.latest,
+        loadingCertificates: false,
+        certificateError: null,
+        mockMode,
+      });
+      return;
+    }
+
+    fetch(API_PATH)
+      .then(response => {
+        const contentType = response.headers.get("content-type") || "";
+
+        if (!contentType.includes("application/json")) {
+          throw new Error(
+            "ローカル確認では ?mock=delayed または ?mock=published を付けると遅延証明書の表示を確認できます。"
+          );
+        }
+
+        return response.json().then(data => {
+          if (!response.ok) {
+            throw new Error(
+              data && data.error
+                ? `遅延証明書を取得できませんでした: ${data.error}`
+                : "遅延証明書を取得できませんでした。"
+            );
+          }
+          return data;
+        });
       })
-      .catch(error => alert(error));
-
-    e.preventDefault();
-  };
-
-  handleChange = e => this.setState({ [e.target.name]: e.target.value });
+      .then(data => {
+        this.setState({
+          certificates: data.certificates || [],
+          latest: data.latest,
+          loadingCertificates: false,
+          certificateError: null,
+        });
+      })
+      .catch(error => {
+        this.setState({
+          certificates: [],
+          latest: null,
+          loadingCertificates: false,
+          certificateError: error.message,
+        });
+      });
+  }
 
   render() {
-    const { message } = this.state;
-    const inputStyle = {
-      backgroundColor: "rgba(0,0,0,0.2)",
-      color: "#fff",
-      borderWidth: "2px",
-    };
     return (
       <Layout>
         <SEO title="Movies" keywords={[`gatsby`, `application`, `react`]} />
@@ -74,84 +111,15 @@ class VideosPage extends Component {
           </div>
         </Hero>
         <Hero color="#546e7a" name="delay">
+          <style>{delaySectionStyles}</style>
           <Heading>遅延証明書</Heading>
-          <p>ラムダ技術部では毎週土曜日18時に投稿予定の動画が10分以上遅れた場合、遅延証明書を掲載いたします。</p>
-          <p>遅延の証明が必要な際にダウンロードしてお使いください。</p>
-          <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-            <thead>
-              <tr>
-                <th>日時</th>
-                <th>タイトル</th>
-                <th>遅れ</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>2022年11月8日</td>
-                <td><a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://youtu.be/XCMAEwvU3J8"
-                  >
-                    【ケチ】いつでもできるJRの限界節約方法100選
-                  </a>
-                </td>
-                <td>
-                  <a 
-                    className="button is-primary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="/certificate/certificate_of_delay_2022-11-08.pdf"
-                  >
-                    13455分
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>2022年8月20日</td>
-                <td><a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://www.youtube.com/shorts/cyPCHMy15SI"
-                  >
-                    仕事を押し付け合うスマートスピーカーを作った
-                  </a>
-                </td>
-                <td>
-                  <a 
-                    className="button is-primary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="/certificate/certificate_of_delay_2022-08-20.pdf"
-                  >
-                    225分
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>2022年8月13日</td>
-                <td><a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://youtu.be/DXSQ_hkZyW8"
-                  >
-                    【特定厨】花火の動画から居場所を特定するのちょろすぎて草
-                  </a>
-                </td>
-                <td>
-                  <a 
-                    className="button is-primary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="/certificate/certificate_of_delay_2022-08-13.pdf"
-                  >
-                    210分
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <p>※ 遅延証明書が掲載されるまで時間を要する場合があります。</p>
+          {this.renderCurrentDelayStatus()}
+          <p>
+            ラムダ技術部では毎週土曜日18時に投稿予定の動画が10分以上遅れた場合、遅延証明書を掲載いたします。
+            <br />
+            遅延の証明が必要な際にダウンロードしてお使いください。
+          </p>
+          {this.renderCertificates()}
           <p>※ 18時投稿はベストエフォートです。</p>
           <div className="has-text-centered">
             <a
@@ -164,6 +132,216 @@ class VideosPage extends Component {
         </Hero>
       </Layout>
     );
+  }
+
+  renderCurrentDelayStatus() {
+    const { latest, loadingCertificates, certificateError } = this.state;
+
+    const isDelayed = latest && latest.status === "delayed";
+    const isNormal = latest && !isDelayed;
+    const currentStatus = latest
+      ? isDelayed
+        ? formatDelayStatus(getEffectiveDelayMinutes(latest))
+        : "遅延なし"
+      : loadingCertificates
+      ? "確認中"
+      : certificateError
+      ? "取得できません"
+      : "確認中";
+
+    return (
+      <section
+        className={`delay-status-box ${
+          isDelayed ? "is-delayed" : isNormal ? "is-normal" : "is-unknown"
+        }`}
+      >
+        <p className="delay-status-heading">現在の遅延状況</p>
+        <p className="delay-status-value">{currentStatus}</p>
+      </section>
+    );
+  }
+
+  renderCertificates() {
+    const {
+      certificates,
+      loadingCertificates,
+      certificateError,
+      mockMode,
+    } = this.state;
+
+    if (loadingCertificates) {
+      return <p>遅延証明書を読み込んでいます。</p>;
+    }
+
+    if (certificateError) {
+      return (
+        <div className="notification is-warning">
+          <p>{certificateError}</p>
+          <p>Netlify Functions の初回実行後に一覧が表示されます。</p>
+        </div>
+      );
+    }
+
+    if (!certificates.length) {
+      return (
+        <div className="notification is-info">
+          現在、発行済みの遅延証明書はありません。
+        </div>
+      );
+    }
+
+    return (
+      <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>予定日時</th>
+            <th>対象動画</th>
+            <th>遅れ</th>
+            <th>証明書</th>
+          </tr>
+        </thead>
+        <tbody>
+          {certificates.map(certificate => (
+            <tr key={certificate.id}>
+              <td>{formatDateTime(certificate.scheduledAt)}</td>
+              <td>
+                {certificate.videoUrl ? (
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={certificate.videoUrl}
+                  >
+                    {certificate.videoTitle}
+                  </a>
+                ) : (
+                  statusLabel(certificate.status)
+                )}
+              </td>
+              <td>{formatMinutes(getEffectiveDelayMinutes(certificate))}</td>
+              <td>
+                <Link
+                  className="button is-primary"
+                  to={`/delay-certificate?id=${encodeURIComponent(
+                    certificate.id
+                  )}${getMockQuerySuffix(mockMode)}`}
+                >
+                  表示
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+}
+
+const delaySectionStyles = `
+#delay .delay-status-box {
+  background: #fff;
+  border-left: 0.55rem solid #90a4ae;
+  border-radius: 6px;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.16);
+  color: #263238;
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+}
+#delay .delay-status-box.is-normal {
+  border-left-color: #009688;
+}
+#delay .delay-status-box.is-delayed {
+  border-left-color: #ff9800;
+}
+#delay .delay-status-box.is-unknown {
+  border-left-color: #546e7a;
+}
+#delay .delay-status-heading {
+  color: #455a64;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin: 0 0 0.35rem;
+}
+#delay .delay-status-value {
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.25;
+  margin: 0;
+}
+@media screen and (max-width: 560px) {
+  #delay .delay-status-box {
+    padding: 1rem;
+  }
+  #delay .delay-status-value {
+    font-size: 1.55rem;
+  }
+}
+`;
+
+function formatDateTime(value) {
+  if (!value) {
+    return "";
+  }
+
+  return new Intl.DateTimeFormat("ja-JP", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Asia/Tokyo",
+  }).format(new Date(value));
+}
+
+function formatMinutes(minutes) {
+  const safeMinutes = Number(minutes) || 0;
+  const days = Math.floor(safeMinutes / 1440);
+  const hours = Math.floor((safeMinutes % 1440) / 60);
+  const restMinutes = safeMinutes % 60;
+
+  if (days > 0) {
+    return `${days}日 ${hours}時間 ${restMinutes}分`;
+  }
+
+  if (hours > 0) {
+    return `${hours}時間 ${restMinutes}分`;
+  }
+
+  return `${safeMinutes}分`;
+}
+
+function formatDelayStatus(minutes) {
+  return `${formatMinutes(minutes)}遅れ`;
+}
+
+function getEffectiveDelayMinutes(certificate) {
+  if (
+    certificate &&
+    certificate.status === "delayed" &&
+    certificate.scheduledAt
+  ) {
+    return Math.max(
+      0,
+      Math.floor(
+        (Date.now() - new Date(certificate.scheduledAt).getTime()) / 60000
+      )
+    );
+  }
+
+  return certificate ? certificate.delayMinutes : 0;
+}
+
+function statusLabel(status) {
+  switch (status) {
+    case "delayed":
+      return "遅延中";
+    case "published":
+      return "公開済み";
+    case "no-delay":
+      return "遅延なし";
+    case "pending":
+      return "確認中";
+    default:
+      return status || "";
   }
 }
 
