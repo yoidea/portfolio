@@ -1,4 +1,4 @@
-const { getStore } = require("@netlify/blobs");
+const { connectLambda, getStore } = require("@netlify/blobs");
 const https = require("https");
 
 const JST_OFFSET_MS = 9 * 60 * 60 * 1000;
@@ -23,6 +23,12 @@ function jsonResponse(body, statusCode = 200) {
 
 function getCertificateStore() {
   return getStore(STORE_NAME);
+}
+
+function connectBlobs(event) {
+  if (event && event.blobs) {
+    connectLambda(event);
+  }
 }
 
 function parseJson(value, fallback) {
@@ -260,6 +266,7 @@ function getJson(url) {
 }
 
 module.exports = {
+  connectBlobs,
   createDelayRecordForScheduledAt,
   createWeeklyDelayRecord,
   fetchLatestUploadedVideo,

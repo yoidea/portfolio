@@ -1,4 +1,5 @@
 const {
+  connectBlobs,
   getCertificateStore,
   jsonHeaders,
   jsonResponse,
@@ -6,6 +7,8 @@ const {
 } = require("./lib/delay-certificates");
 
 exports.handler = async function handler(event) {
+  connectBlobs(event);
+
   if (event.httpMethod === "OPTIONS") {
     return {
       statusCode: 204,

@@ -1,4 +1,5 @@
 const {
+  connectBlobs,
   createDelayRecordForScheduledAt,
   createWeeklyDelayRecord,
   fetchLatestUploadedVideo,
@@ -8,8 +9,10 @@ const {
   writeDelayRecord,
 } = require("./lib/delay-certificates");
 
-exports.handler = async function handler() {
+exports.handler = async function handler(event) {
   try {
+    connectBlobs(event);
+
     const latestVideo = await fetchLatestUploadedVideo();
     const store = getCertificateStore();
     const now = new Date();
