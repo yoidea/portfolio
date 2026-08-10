@@ -103,26 +103,35 @@ class VideosPage extends Component {
           </div>
         </Hero>
         <Hero color="#546e7a" name="delay">
+          <style>{delaySectionStyles}</style>
           <Heading>遅延証明書</Heading>
-          <h2 className="subtitle is-5">掲載内容について</h2>
-          <p>
-            このページでは、ラムダ技術部のYouTube動画投稿が毎週土曜日18時の予定時刻より10分以上遅れた場合に、
-            電子版の遅延証明書を掲載します。
-          </p>
-          <ul>
-            <li>
-              掲載対象は、毎週土曜日18時を基準としたYouTube動画投稿の遅延です。
-            </li>
-            <li>
-              遅延時間はYouTubeの最新投稿状況をもとに自動計算し、投稿が確認されるまで随時更新します。
-            </li>
-            <li>
-              投稿後は、予定投稿日時、公開日時、対象動画、確定した遅延時間を掲載します。
-            </li>
-            <li>
-              証明書を開き、ブラウザの印刷機能からPDFとして保存できます。
-            </li>
-          </ul>
+          <section className="delay-info-box">
+            <div className="delay-info-heading">
+              <p className="delay-info-label">掲載内容について</p>
+              <p>
+                ラムダ技術部のYouTube動画投稿が毎週土曜日18時の予定時刻より10分以上遅れた場合に、
+                電子版の遅延証明書を掲載します。
+              </p>
+            </div>
+            <div className="delay-info-grid">
+              <div>
+                <span>掲載対象</span>
+                <p>毎週土曜日18時を基準としたYouTube動画投稿の遅延</p>
+              </div>
+              <div>
+                <span>更新</span>
+                <p>YouTubeの最新投稿状況をもとに自動計算し、投稿確認まで随時更新</p>
+              </div>
+              <div>
+                <span>掲載内容</span>
+                <p>予定投稿日時、公開日時、対象動画、確定した遅延時間</p>
+              </div>
+              <div>
+                <span>保存方法</span>
+                <p>証明書を開き、ブラウザの印刷機能からPDFとして保存</p>
+              </div>
+            </div>
+          </section>
           {this.renderDelayStatus()}
           {this.renderCertificates()}
           <p>※ 18時投稿はベストエフォートです。</p>
@@ -236,6 +245,67 @@ class VideosPage extends Component {
     );
   }
 }
+
+const delaySectionStyles = `
+.delay-info-box {
+  background: rgba(255, 255, 255, 0.95);
+  border-left: 6px solid #ffca28;
+  border-radius: 6px;
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.18);
+  color: #263238;
+  margin: 1.5rem 0 2rem;
+  padding: 1.5rem;
+}
+.delay-info-heading {
+  border-bottom: 1px solid #cfd8dc;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+}
+.delay-info-label {
+  color: #263238;
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin-bottom: 0.35rem;
+}
+.delay-info-heading p:last-child {
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+.delay-info-grid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.delay-info-grid > div {
+  background: #eceff1;
+  border: 1px solid #cfd8dc;
+  border-radius: 4px;
+  min-height: 7rem;
+  padding: 1rem;
+}
+.delay-info-grid span {
+  color: #455a64;
+  display: block;
+  font-size: 0.86rem;
+  font-weight: bold;
+  margin-bottom: 0.45rem;
+}
+.delay-info-grid p {
+  line-height: 1.65;
+  margin: 0;
+}
+@media screen and (max-width: 768px) {
+  .delay-info-box {
+    padding: 1.1rem;
+  }
+  .delay-info-grid {
+    grid-template-columns: 1fr;
+  }
+  .delay-info-grid > div {
+    min-height: auto;
+  }
+}
+`;
 
 function formatDateTime(value) {
   if (!value) {
