@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "author": "@yoidea",
   "dependencies": {
-    "@netlify/blobs": "^10.7.12",
+    "@netlify/blobs": "8.2.0",
     "bulma": "^0.7.4",
     "gatsby": "^2.1.31",
     "gatsby-image": "^2.0.33",
