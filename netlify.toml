@@ -1,0 +1,6 @@
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[functions."check-youtube-delay"]
+  schedule = "10 * * * *"
