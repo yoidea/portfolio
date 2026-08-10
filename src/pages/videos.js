@@ -44,6 +44,14 @@ class VideosPage extends Component {
 
     fetch(API_PATH)
       .then(response => {
+        const contentType = response.headers.get("content-type") || "";
+
+        if (!contentType.includes("application/json")) {
+          throw new Error(
+            "ローカル確認では ?mock=delayed または ?mock=published を付けると遅延証明書の表示を確認できます。"
+          );
+        }
+
         return response.json().then(data => {
           if (!response.ok) {
             throw new Error(
@@ -247,7 +255,7 @@ class VideosPage extends Component {
 }
 
 const delaySectionStyles = `
-.delay-info-box {
+#delay .delay-info-box {
   background: rgba(255, 255, 255, 0.95);
   border-left: 6px solid #ffca28;
   border-radius: 6px;
@@ -256,52 +264,52 @@ const delaySectionStyles = `
   margin: 1.5rem 0 2rem;
   padding: 1.5rem;
 }
-.delay-info-heading {
+#delay .delay-info-heading {
   border-bottom: 1px solid #cfd8dc;
   margin-bottom: 1.25rem;
   padding-bottom: 1rem;
 }
-.delay-info-label {
+#delay .delay-info-label {
   color: #263238;
   font-size: 1.15rem;
   font-weight: bold;
   margin-bottom: 0.35rem;
 }
-.delay-info-heading p:last-child {
+#delay .delay-info-heading p:last-child {
   line-height: 1.8;
   margin-bottom: 0;
 }
-.delay-info-grid {
+#delay .delay-info-grid {
   display: grid;
   gap: 0.85rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-.delay-info-grid > div {
+#delay .delay-info-grid > div {
   background: #eceff1;
   border: 1px solid #cfd8dc;
   border-radius: 4px;
-  min-height: 7rem;
+  min-height: 6.25rem;
   padding: 1rem;
 }
-.delay-info-grid span {
+#delay .delay-info-grid span {
   color: #455a64;
   display: block;
   font-size: 0.86rem;
   font-weight: bold;
   margin-bottom: 0.45rem;
 }
-.delay-info-grid p {
+#delay .delay-info-grid p {
   line-height: 1.65;
   margin: 0;
 }
-@media screen and (max-width: 768px) {
-  .delay-info-box {
+@media screen and (max-width: 560px) {
+  #delay .delay-info-box {
     padding: 1.1rem;
   }
-  .delay-info-grid {
+  #delay .delay-info-grid {
     grid-template-columns: 1fr;
   }
-  .delay-info-grid > div {
+  #delay .delay-info-grid > div {
     min-height: auto;
   }
 }
