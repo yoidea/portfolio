@@ -3,4 +3,4 @@
   node_bundler = "esbuild"
 
 [functions."check-youtube-delay"]
-  schedule = "10 * * * *"
+  schedule = "*/10 * * * *"

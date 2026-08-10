@@ -11,7 +11,7 @@ import { StaticQuery, graphql } from "gatsby";
 
 import Header from "./header";
 import Footer from "./footer";
-import "bulma";
+import "bulma/css/bulma.css";
 import "./layout.css";
 import SweetScroll from "sweet-scroll";
 new SweetScroll({
