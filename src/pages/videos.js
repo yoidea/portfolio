@@ -13,6 +13,32 @@ import {
 import "./animista.css";
 
 const API_PATH = "/.netlify/functions/delay-certificates";
+const LEGACY_DELAY_CERTIFICATES = [
+  {
+    id: "legacy-2022-11-08",
+    scheduledAt: "2022-11-08T18:00:00+09:00",
+    title: "【ケチ】いつでもできるJRの限界節約方法100選",
+    videoUrl: "https://youtu.be/XCMAEwvU3J8",
+    delayMinutes: 13455,
+    href: "/certificate/certificate_of_delay_2022-11-08.pdf",
+  },
+  {
+    id: "legacy-2022-08-20",
+    scheduledAt: "2022-08-20T18:00:00+09:00",
+    title: "仕事を押し付け合うスマートスピーカーを作った",
+    videoUrl: "https://www.youtube.com/shorts/cyPCHMy15SI",
+    delayMinutes: 225,
+    href: "/certificate/certificate_of_delay_2022-08-20.pdf",
+  },
+  {
+    id: "legacy-2022-08-13",
+    scheduledAt: "2022-08-13T18:00:00+09:00",
+    title: "【特定厨】花火の動画から居場所を特定するのちょろすぎて草",
+    videoUrl: "https://youtu.be/DXSQ_hkZyW8",
+    delayMinutes: 210,
+    href: "/certificate/certificate_of_delay_2022-08-13.pdf",
+  },
+];
 
 class VideosPage extends Component {
   constructor(props) {
@@ -168,70 +194,69 @@ class VideosPage extends Component {
       certificateError,
       mockMode,
     } = this.state;
+    const certificateRows = buildCertificateRows(certificates, mockMode);
 
-    if (loadingCertificates) {
+    if (!certificateRows.length && loadingCertificates) {
       return <p>遅延証明書を読み込んでいます。</p>;
     }
 
-    if (certificateError) {
-      return (
-        <div className="notification is-warning">
-          <p>{certificateError}</p>
-          <p>Netlify Functions の初回実行後に一覧が表示されます。</p>
-        </div>
-      );
-    }
-
-    if (!certificates.length) {
-      return (
-        <div className="notification is-info">
-          現在、発行済みの遅延証明書はありません。
-        </div>
-      );
-    }
-
     return (
-      <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-        <thead>
-          <tr>
-            <th>予定日時</th>
-            <th>対象動画</th>
-            <th>遅れ</th>
-            <th>証明書</th>
-          </tr>
-        </thead>
-        <tbody>
-          {certificates.map(certificate => (
-            <tr key={certificate.id}>
-              <td>{formatDateTime(certificate.scheduledAt)}</td>
-              <td>
-                {certificate.videoUrl ? (
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={certificate.videoUrl}
-                  >
-                    {certificate.videoTitle}
-                  </a>
-                ) : (
-                  statusLabel(certificate.status)
-                )}
-              </td>
-              <td>{formatMinutes(getEffectiveDelayMinutes(certificate))}</td>
-              <td>
-                <Link
-                  className="button is-primary"
-                  to={`/delay-certificate?id=${encodeURIComponent(
-                    certificate.id
-                  )}${getMockQuerySuffix(mockMode)}`}
-                >
-                  表示
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <>
+        {loadingCertificates ? <p>遅延証明書を読み込んでいます。</p> : null}
+        {certificateError ? (
+          <div className="notification is-warning">
+            <p>{certificateError}</p>
+            <p>電子版の取得に失敗した場合も、過去のPDF版は表示されます。</p>
+          </div>
+        ) : null}
+        {!certificateRows.length ? (
+          <div className="notification is-info">
+            現在、発行済みの遅延証明書はありません。
+          </div>
+        ) : (
+          <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <th>予定日時</th>
+                <th>対象動画</th>
+                <th>遅れ</th>
+                <th>証明書</th>
+              </tr>
+            </thead>
+            <tbody>
+              {certificateRows.map(certificate =>
+                this.renderCertificateRow(certificate)
+              )}
+            </tbody>
+          </table>
+        )}
+      </>
+    );
+  }
+
+  renderCertificateRow(certificate) {
+    return (
+      <tr key={certificate.id}>
+        <td>{formatDateTime(certificate.scheduledAt)}</td>
+        <td>{certificate.title}</td>
+        <td>{certificate.delayLabel}</td>
+        <td>
+          {certificate.href && certificate.documentLabel ? (
+            <a
+              className="button is-primary"
+              href={certificate.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {certificate.documentLabel}
+            </a>
+          ) : (
+            <Link className="button is-primary" to={certificate.to}>
+              {certificate.documentLabel}
+            </Link>
+          )}
+        </td>
+      </tr>
     );
   }
 }
@@ -311,6 +336,39 @@ function formatMinutes(minutes) {
 
 function formatDelayStatus(minutes) {
   return `${formatMinutes(minutes)}遅れ`;
+}
+
+function buildCertificateRows(certificates, mockMode) {
+  const electronicRows = certificates.map(certificate => ({
+    id: certificate.id,
+    scheduledAt: certificate.scheduledAt,
+    title: certificate.videoUrl ? (
+      <a target="_blank" rel="noopener noreferrer" href={certificate.videoUrl}>
+        {certificate.videoTitle}
+      </a>
+    ) : (
+      statusLabel(certificate.status)
+    ),
+    delayLabel: formatMinutes(getEffectiveDelayMinutes(certificate)),
+    documentLabel: "表示",
+    to: `/delay-certificate?id=${encodeURIComponent(
+      certificate.id
+    )}${getMockQuerySuffix(mockMode)}`,
+  }));
+  const legacyRows = LEGACY_DELAY_CERTIFICATES.map(certificate => ({
+    ...certificate,
+    title: (
+      <a target="_blank" rel="noopener noreferrer" href={certificate.videoUrl}>
+        {certificate.title}
+      </a>
+    ),
+    delayLabel: formatMinutes(certificate.delayMinutes),
+    documentLabel: "PDF",
+  }));
+
+  return [...electronicRows, ...legacyRows].sort(
+    (a, b) => new Date(b.scheduledAt) - new Date(a.scheduledAt)
+  );
 }
 
 function getEffectiveDelayMinutes(certificate) {
