@@ -98,7 +98,6 @@ Gatsby のサイトメタデータと plugins は `gatsby-config.js` にあり�
 
 ## 技術的負債と注意点
 
-- README はまだ Gatsby starter の内容が中心で、実際のサイト内容を正確に説明していない可能性があります。
 - Gatsby 2、React 16、`node-sass` は古い依存関係です。アップグレードは別の移行タスクとして扱ってください。
 - 一部の JSX に生の `class` 属性があります。新規 JSX では `className` を使い、
   同じファイルを編集する場合は近くの `class` も修正を検討してください。

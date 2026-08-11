@@ -1,97 +1,136 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's default starter
-</h1>
+# ラムダ技術部 公式サイト
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+YouTubeチャンネル「ラムダ技術部」の公式サイトです。プロフィール、問い合わせ先、動画関連コンテンツ、利用ガイドライン、関連作品、遅延証明書などを掲載しています。
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+公開サイト: [https://ラムダ.com](https://ラムダ.com)
 
-## 🚀 Quick start
+## このリポジトリで扱うもの
 
-1.  **Create a Gatsby site.**
+| 領域 | 内容 |
+| --- | --- |
+| 公式サイト | ラムダ技術部のプロフィール、SNSリンク、問い合わせ先、関連コンテンツを掲載します。 |
+| 動画関連ページ | YouTubeチャンネル紹介、遅延証明書、過去のPDF版遅延証明書を掲載します。 |
+| 遅延証明書 | YouTube Data API、Netlify Scheduled Functions、Netlify Blobs を使って電子版証明書を更新します。 |
+| 静的資料 | 過去のPDF版遅延証明書など、直接配信するファイルを `static/` に置いています。 |
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
+## 主なページ
 
-    ```sh
-    # create a new Gatsby site using the default starter
-    gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
-    ```
+| URL | 実装 | 役割 |
+| --- | --- | --- |
+| `/` | `src/pages/index.js` | トップページ。ラムダ技術部のブランド表示とSNSリンク。 |
+| `/about` | `src/pages/about.js` | プロフィール、学歴、職歴。 |
+| `/videos` | `src/pages/videos.js` | YouTubeチャンネル紹介、現在の遅延状況、遅延証明書一覧。 |
+| `/delay-certificate` | `src/pages/delay-certificate.js` | 電子版遅延証明書の詳細表示。 |
+| `/contact` | `src/pages/contact.js` | 問い合わせフォームと連絡先リンク。 |
+| `/guidelines` | `src/pages/guidelines.js` | コンテンツ利用ガイドライン。 |
+| `/works` | `src/pages/works.js` | 関連作品、プロジェクト。 |
+| `/pgp` | `src/pages/pgp.js` | 関連コンテンツ。 |
+| `/qa` | `src/pages/qa.js` | アンケートページ。 |
 
-1.  **Start developing.**
+## 技術スタック
 
-    Navigate into your new site’s directory and start it up.
+- Gatsby 2
+- React 16
+- Bulma
+- `gatsby-image` / `gatsby-plugin-sharp` / `gatsby-transformer-sharp`
+- Netlify Functions
+- Netlify Scheduled Functions
+- Netlify Blobs
+- YouTube Data API v3
+- Yarn
 
-    ```sh
-    cd my-default-starter/
-    gatsby develop
-    ```
+古いGatsby/React世代の構成です。依存関係の更新やGatsbyのメジャーアップグレードは、通常のコンテンツ修正とは分けて扱ってください。
 
-1.  **Open the source code and start editing!**
+## 開発コマンド
 
-    Your site is now running at `http://localhost:8000`!
+```sh
+yarn install
+yarn develop
+yarn build
+yarn serve
+```
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
+ローカル環境で画像処理系のネイティブ依存関係に詰まる場合は、デザイン確認用に次の環境変数を付けて起動できます。
 
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+```sh
+LOCAL_DESIGN_PREVIEW=1 yarn develop
+LOCAL_DESIGN_PREVIEW=1 yarn build
+```
 
-## 🧐 What's inside?
+`yarn test` は現状プレースホルダーです。変更確認では主に `yarn build` を使います。
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
+## 遅延証明書機能
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
+`/videos` では、毎週土曜日18時の動画投稿予定に対する現在の遅延状況と、発行済みの遅延証明書を表示します。
 
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
+- `netlify/functions/check-youtube-delay.js`
+  - 10分おきに実行される Scheduled Function です。
+  - YouTubeの最新投稿を確認し、土曜18時基準の状態を更新します。
+- `netlify/functions/delay-certificates.js`
+  - 証明書一覧と証明書詳細を返す通常の Netlify Function です。
+- `netlify/functions/lib/delay-certificates.js`
+  - YouTube API連携、遅延判定、Netlify Blobs の読み書きをまとめています。
+- `src/lib/delay-certificate-mocks.js`
+  - ローカル表示確認用のモックデータです。
 
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
+ローカルでは次のURLで表示状態を確認できます。
 
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
+```text
+/videos?mock=published
+/videos?mock=delayed
+```
 
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
+### 必要な環境変数
 
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
+Netlify側で次の環境変数を設定します。
 
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
+| 変数名 | 用途 |
+| --- | --- |
+| `YOUTUBE_API_KEY` | YouTube Data API v3 のAPIキー。 |
+| `YOUTUBE_CHANNEL_ID` | ラムダ技術部のYouTubeチャンネルID。 |
+| `YOUTUBE_UPLOADS_PLAYLIST_ID` | チャンネルのuploads playlist ID。 |
 
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
+## ディレクトリ構成
 
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
+```text
+.
+├── src/
+│   ├── components/         # Layout、Header、Footer、Hero、SEOなどの共通部品
+│   ├── images/             # Reactコンポーネントからimportする画像
+│   ├── lib/                # フロントエンド側の補助ロジック、モックデータ
+│   └── pages/              # Gatsbyのページコンポーネント
+├── static/
+│   ├── certificate/        # 過去のPDF版遅延証明書
+│   └── pgp/                # 関連コンテンツの静的ファイル
+├── netlify/
+│   └── functions/          # Netlify Functions と Scheduled Functions
+├── gatsby-config.js        # Gatsby設定、siteMetadata、plugin設定
+├── netlify.toml            # Netlify Functions とcron設定
+├── package.json            # 依存関係とnpm scripts
+└── CODEX.md                # Codex向けの開発メモ
+```
 
-9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
+## 開発時の注意
 
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
+- 公開向けサイトなので、リンク切れ、古いプロフィール、自然でない日本語コピーに注意してください。
+- 外部リンクは `target="_blank"` と `rel="noopener noreferrer"` を付けます。
+- トップレベルページを追加/削除する場合は、`src/components/header.js` と `src/components/footer.js` の両方を確認してください。
+- Reactコンポーネントで使う画像は原則 `src/images/`、直接URLで配信する静的ファイルは `static/` に置きます。
+- `public/` と `.cache/` はGatsbyの生成物です。通常は直接編集しません。
+- Netlify Blobs に保存された遅延証明書データはGit管理されません。
 
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
+## 検証
 
-12. **`README.md`**: A text file containing useful reference information about your project.
+変更内容に応じて、少なくとも次を確認します。
 
-## 🎓 Learning Gatsby
+```sh
+yarn build
+```
 
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
+表示や導線を変えた場合は、ローカルサーバーで対象ページも確認します。
 
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
+```sh
+yarn develop
+```
 
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
-
-## 💫 Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
-
-<!-- AUTO-GENERATED-CONTENT:END -->
+遅延証明書まわりを触った場合は、通常表示に加えて `?mock=published` と `?mock=delayed` の表示も確認してください。
