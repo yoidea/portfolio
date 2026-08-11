@@ -217,9 +217,10 @@ class VideosPage extends Component {
           <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
             <thead>
               <tr>
-                <th>日時</th>
-                <th>タイトル</th>
+                <th>予定日時</th>
+                <th>対象動画</th>
                 <th>遅れ</th>
+                <th>証明書</th>
               </tr>
             </thead>
             <tbody>
@@ -236,21 +237,22 @@ class VideosPage extends Component {
   renderCertificateRow(certificate) {
     return (
       <tr key={certificate.id}>
-        <td>{formatDate(certificate.scheduledAt)}</td>
+        <td>{formatDateTime(certificate.scheduledAt)}</td>
         <td>{certificate.title}</td>
+        <td>{certificate.delayLabel}</td>
         <td>
-          {certificate.href ? (
+          {certificate.href && certificate.documentLabel ? (
             <a
               className="button is-primary"
               href={certificate.href}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {certificate.delayLabel}
+              {certificate.documentLabel}
             </a>
           ) : (
             <Link className="button is-primary" to={certificate.to}>
-              {certificate.delayLabel}
+              {certificate.documentLabel}
             </Link>
           )}
         </td>
@@ -300,7 +302,7 @@ const delaySectionStyles = `
 }
 `;
 
-function formatDate(value) {
+function formatDateTime(value) {
   if (!value) {
     return "";
   }
@@ -309,6 +311,8 @@ function formatDate(value) {
     year: "numeric",
     month: "long",
     day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
     timeZone: "Asia/Tokyo",
   }).format(new Date(value));
 }
@@ -346,6 +350,7 @@ function buildCertificateRows(certificates, mockMode) {
       statusLabel(certificate.status)
     ),
     delayLabel: formatMinutes(getEffectiveDelayMinutes(certificate)),
+    documentLabel: "表示",
     to: `/delay-certificate?id=${encodeURIComponent(
       certificate.id
     )}${getMockQuerySuffix(mockMode)}`,
@@ -358,6 +363,7 @@ function buildCertificateRows(certificates, mockMode) {
       </a>
     ),
     delayLabel: formatMinutes(certificate.delayMinutes),
+    documentLabel: "PDF",
   }));
 
   return [...electronicRows, ...legacyRows].sort(
