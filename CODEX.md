@@ -3,39 +3,23 @@
 ## プロジェクト概要
 
 このリポジトリは、YouTubeチャンネル「ラムダ技術部」の公式サイトです。
-チャンネル/プロフィール、お問い合わせ先、YouTube関連コンテンツ、その他の関連コンテンツ、
-関連作品などを掲載しています。
+チャンネル/プロフィール、お問い合わせ先、YouTube関連コンテンツ、利用ガイドライン、
+関連作品、遅延証明書などを掲載しています。
 
-このサイトは公開向けのクリエイター/チャンネル公式サイトとして扱ってください。
-複雑なアプリケーション機能を足すことよりも、掲載内容の正確性、日本語コピーの自然さ、
-リンクの正しさ、モバイルでの読みやすさ、軽量な静的サイト体験を重視します。
-
-## 技術スタック
-
-- フレームワーク: Gatsby 2
-- UI: React 16。クラスコンポーネントと関数コンポーネントが混在
-- スタイリング: Bulma、ローカルCSS、既存コンポーネント内のインラインスタイル
-- 画像: `gatsby-image`、`gatsby-plugin-sharp`、`gatsby-transformer-sharp`
-- メタデータ: `src/components/seo.js` 経由の `react-helmet`
-- パッケージマネージャー: Yarn。`yarn.lock` をコミット済み
-- テスト: Jest設定あり。ただし現状の `test` script はプレースホルダー
-
-主要なプロジェクトメタデータと scripts は `package.json` にあります。
-Gatsby のサイトメタデータと plugins は `gatsby-config.js` にあります。
+公開向けの公式サイトとして、掲載内容の正確性、日本語コピーの自然さ、リンクの正しさ、
+モバイルでの読みやすさ、軽量な静的サイト体験を重視します。
 
 ## Astro移行方針
 
-長期作業用ブランチ `rewrite/astro` で、公式サイトを Gatsby から Astro へ書き直す予定です。
+長期作業用ブランチ `rewrite/astro` で、公式サイトを Gatsby から Astro へ書き直しています。
 完成するまでは `master` にマージせず、Netlify Branch Deploy Preview で確認しながら進めます。
 完成後に `master` へ一括マージして本番公開します。
-
-移行後の基本方針は以下です。
 
 - フレームワーク: Astro
 - CSSフレームワーク: Tailwind
 - UIコンポーネントライブラリ: 導入しない
 - Figma: 原則使わない
-- Storybook: 初期導入しない。まずは `/design-system` 相当の確認ページで進める
+- Storybook: 初期導入しない。まずは `/design-system` で進める
 - デザイン管理: Tailwind theme、CSS custom properties、Astroコンポーネントを併用する
 - 遅延証明書機能: 現行仕様を維持する
 - プラットフォーム: Netlify継続を本命とする
@@ -53,88 +37,99 @@ URLを変える場合は、リダイレクトや旧URLからの導線を検討�
 
 `/design-system` は開発中の確認ページとして使います。
 本番公開時は、一般公開が必要な理由がなければ削除するか、少なくともナビゲーションから外して `noindex` にしてください。
-公式サイトでは、開発者向けのデザイン確認ページを通常コンテンツとして公開し続ける必要はありません。
 
 Astro移行中に新しい機能、外部API、環境変数、運用手順、モック、壊しやすい仕様が増えた場合は、
 この `CODEX.md` に追記してください。
 
+## 技術スタック
+
+- Astro
+- Tailwind CSS
+- CSS custom properties
+- Netlify Functions
+- Netlify Scheduled Functions
+- Netlify Blobs
+- YouTube Data API v3
+- pnpm
+
+主要なプロジェクトメタデータと scripts は `package.json` にあります。
+Astro設定は `astro.config.mjs`、Netlify設定は `netlify.toml` にあります。
+
 ## よく使うコマンド
 
-- 依存関係のインストール: `yarn install`
-- ローカル開発サーバー起動: `yarn develop`
-- 本番ビルド: `yarn build`
-- ビルド済みサイトの確認: `yarn serve`
-- `src` 配下の JS/JSX 整形: `yarn format`
-- テスト: `yarn test`
+- 依存関係のインストール: `pnpm install`
+- ローカル開発サーバー起動: `pnpm dev`
+- 本番ビルド: `pnpm build`
+- ビルド済みサイトの確認: `pnpm preview`
 
-注意: 現状の `yarn test` は Gatsby の unit testing ガイドを表示するだけです。
-実テストが追加されるまでは、主な検証コマンドとして `yarn build` を使ってください。
+`pnpm approve-builds` が必要な場合、`esbuild` と `sharp` はAstroの正当な依存として承認して構いません。
 
 ## リポジトリ構成
 
-- `src/pages/`: Gatsby のページコンポーネント。各ファイルがルートに対応します。
-- `src/components/`: 共通レイアウト、ナビゲーション、Hero、SEO、タイポグラフィ、
-  タイムライン、メッセージ、画像、小さな演出など。
-- `src/images/`: Reactコンポーネントから import して使う画像。
-- `public/`: Gatsby の生成物や、パス指定で配信する静的ファイル。
-  意図的な静的ファイルを除き、生成されたビルド成果物は編集しないでください。
-- `gatsby-config.js`: サイトメタデータ、画像処理、manifest、Sass plugin。
-- `jest.config.js`、`jest-preprocess.js`、`__mocks__/`: Jest設定。
+- `src/pages/`: Astro のページコンポーネント。各ファイルがルートに対応します。
+- `src/layouts/`: 共通レイアウト。
+- `src/components/`: Astroコンポーネント。Header、Footer、ページイントロ、タイムラインなど。
+- `src/styles/`: Tailwind entrypoint とグローバルCSS、デザイントークン。
+- `src/images/`: Astroコンポーネントから import して使う画像。
+- `public/`: Astroで直接配信する静的ファイル。PDFやPGP関連ファイルを置きます。
+- `netlify/functions/`: 遅延証明書用の Netlify Functions と Scheduled Functions。
+- `dist/`: Astro のビルド成果物。Git管理しません。
 
 ## 重要なページ
 
-- `/` (`src/pages/index.js`): チャンネル名とSNSリンクを載せたメインページ。
-- `/about` (`src/pages/about.js`): プロフィール、学歴、職歴のタイムライン。
-- `/videos` (`src/pages/videos.js`): チャンネル説明、遅延証明書などの動画関連コンテンツ。
-- `/contact` (`src/pages/contact.js`): Google Form の埋め込みと関連コンテンツへのリンク。
-- `/guidelines` (`src/pages/guidelines.js`): 動画等コンテンツ利用ガイドライン。
-- `/pgp` (`src/pages/pgp.js`): 関連コンテンツのページ。
-- `/works` (`src/pages/works.js`): 関連作品/プロジェクト。
-- `/face` (`src/pages/face.js`): ナビゲーションからリンクされている Face 関連ページ。
-- `/qa` (`src/pages/qa.js`): アンケートページ。
+- `/` (`src/pages/index.astro`): ラムダ技術部の紹介、SNSリンク、連絡先導線。
+- `/about` (`src/pages/about.astro`): プロフィール、学歴、職歴。
+- `/videos` (`src/pages/videos.astro`): チャンネル説明、現在の遅延状況、遅延証明書一覧。
+- `/delay-certificate` (`src/pages/delay-certificate.astro`): 電子版遅延証明書の詳細表示。
+- `/contact` (`src/pages/contact.astro`): Google Form の埋め込みと関連リンク。
+- `/guidelines` (`src/pages/guidelines.astro`): 動画等コンテンツ利用ガイドライン。
+- `/pgp` (`src/pages/pgp.astro`): 関連コンテンツのページ。
+- `/works` (`src/pages/works.astro`): 関連作品/プロジェクト。
+- `/face` (`src/pages/face.astro`): 顔の利用ライセンス。
+- `/qa` (`src/pages/qa.astro`): アンケートページ。
+- `/design-system` (`src/pages/design-system.astro`): 開発中のデザイン確認ページ。`noindex`。
 
-## 既存の設計パターン
+## 遅延証明書機能
 
-- ほとんどのページは `Layout` で包み、`SEO` でメタデータを設定し、
-  主要セクションを共通の `Hero` コンポーネントで表示します。
-- `Hero` は Bulma の full-height hero セクションを基本にし、背景色と
-  ページ内アンカー用の `id` を指定できます。
-- デスクトップのナビゲーションは `Header`、モバイル下部ナビゲーションは `Footer` にあります。
-  トップレベルページを追加/削除するときは両方を同期してください。
-- セクション見出しには `src/components/typography.js` の `Heading` を使います。
-- 表示テキストは日本語が中心です。自然な日本語を優先し、クリエイター/チャンネルの雰囲気に合わせます。
-- 既存コードにはクラスコンポーネントと関数コンポーネントが混在しています。
-  小さな変更では近くの書き方に合わせ、広範囲の書き換えは避けてください。
+現行仕様を維持します。
+
+- Netlify Scheduled Function `check-youtube-delay` が10分おきに動きます。
+- YouTube Data APIで最新投稿を確認します。
+- Netlify Blobs の `delay-certificates` store に状態を保存します。
+- 保存キーは `latest.json`、`certificates/index.json`、`certificates/{id}.json` です。
+- `/videos` は一覧取得、`/delay-certificate` は詳細取得を行います。
+- ローカル確認用に `?mock=published` と `?mock=delayed` を維持します。
+
+必要な環境変数:
+
+- `YOUTUBE_API_KEY`
+- `YOUTUBE_CHANNEL_ID`
+- `YOUTUBE_UPLOADS_PLAYLIST_ID`
 
 ## 開発方針
 
 - 公開向けのアイデンティティを保つこと。`ラムダ技術部` が最重要のブランドシグナルです。
-- 変更範囲は小さく保ってください。明示的な依頼がない限り、フレームワーク更新、
-  依存関係の大幅変更、大規模リライトは避けます。
-- `yarn.lock` があるため、パッケージ操作は原則 `yarn` を使います。
-- コンテンツやナビゲーションを変更した場合は、デスクトップとモバイルの両方を確認してください。
+- 変更範囲は意図に合わせて保ちます。Astro移行ブランチではGatsby由来コードの整理を許容します。
 - 外部リンクを追加する場合は、`target="_blank"` と `rel="noopener noreferrer"` を付けます。
-- 新しいページを追加する場合は `src/pages/` にファイルを追加し、グローバルに見せたいページなら
-  `src/components/header.js` と `src/components/footer.js` の両方を更新します。
-- Reactコンポーネントで使う画像は `src/images/` に置き、コンポーネントから import します。
+- `iframe` には内容が分かる `title` を付けます。
+- 画像には意味のある `alt` を付けます。装飾画像の場合は空の `alt=""` を検討してください。
+- 直接配信する静的ファイルは `public/` に置きます。
+- Netlify Blobs に保存された遅延証明書データはGit管理されません。
 - 公開前に日本語の誤字、古い情報、リンク切れを確認してください。
-- `.cache/` や `public/` 配下の多くの生成ファイルは編集しないでください。
 
 ## 検証チェックリスト
 
 変更を終える前に、内容に応じて最小限かつ有効な確認を行います。
 
-1. Gatsby のコンパイルと本番レンダリング確認: `yarn build`
-2. レイアウト、ナビゲーション、フォーム、レスポンシブ挙動を変えた場合の表示確認: `yarn develop`
-3. 編集した外部URL、Google Form埋め込み、ダウンロード、`public/` 参照ファイルの手動リンク確認
-
-依存関係や Node 互換性の問題が出た場合は、依存関係を変更する前に、
-実行したコマンド、Node/Yarn のバージョン、エラー出力を記録してください。
+1. Astro の本番ビルド確認: `pnpm build`
+2. レイアウト、ナビゲーション、フォーム、レスポンシブ挙動を変えた場合の表示確認: `pnpm dev`
+3. 遅延証明書まわりを変えた場合のモック確認: `/videos?mock=published`、`/videos?mock=delayed`
+4. 編集した外部URL、Google Form埋め込み、ダウンロード、`public/` 参照ファイルの手動リンク確認
 
 ## 技術的負債と注意点
 
-- Gatsby 2、React 16、`node-sass` は古い依存関係です。アップグレードは別の移行タスクとして扱ってください。
-- 一部の JSX に生の `class` 属性があります。新規 JSX では `className` を使い、
-  同じファイルを編集する場合は近くの `class` も修正を検討してください。
-- `gatsby-plugin-offline` はインストールされていますが、`gatsby-config.js` ではコメントアウトされています。
-- 現状の test script は実テストではありません。
+- Astro移行は初期段階です。細部のデザイン、コピー、導線はブランチプレビューで詰めてください。
+- `/works` の旧Gatsby実装にあったHeroku起動待ち演出は移植せず、通常リンクに置き換えています。
+- `/pgp` は公開鍵全文の画面内表示をやめ、ダウンロード中心に簡略化しています。
+- `static/` は旧Gatsby由来です。Astroで配信するファイルは `public/` に置いてください。
+- 本番公開前に `/design-system` を残すか、削除するか、`noindex` のまま非ナビゲーションにするか判断してください。

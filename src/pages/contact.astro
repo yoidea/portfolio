@@ -1,0 +1,64 @@
+---
+import PageIntro from "../components/PageIntro.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfUA1wmUMO16H34eb7cAWQWrK-15MxDMJuTV-pOft2SSnod1A/viewform?embedded=true";
+---
+
+<BaseLayout title="お問い合わせ">
+  <PageIntro
+    eyebrow="Contact"
+    title="お問い合わせ"
+    lead="取材、コンテンツ利用、制作相談などのお問い合わせはこちらからお願いします。"
+  />
+  <section class="section">
+    <div class="container contact-grid">
+      <section class="card form-card" aria-labelledby="contact-form-title">
+        <h2 id="contact-form-title">お問い合わせフォーム</h2>
+        <iframe src={formUrl} title="ラムダ技術部 お問い合わせフォーム" loading="lazy">
+          読み込んでいます…
+        </iframe>
+      </section>
+      <aside class="card link-card" aria-label="関連リンク">
+        <h2>関連リンク</h2>
+        <a class="button" href="/guidelines">動画利用ガイドライン</a>
+        <a class="button secondary" href="/pgp">関連コンテンツ</a>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: minmax(0, 1fr) 20rem;
+  }
+
+  .form-card,
+  .link-card {
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  h2 {
+    margin: 0 0 1rem;
+  }
+
+  iframe {
+    border: 0;
+    height: min(70vh, 760px);
+    width: 100%;
+  }
+
+  .link-card {
+    align-self: start;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  @media (max-width: 880px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

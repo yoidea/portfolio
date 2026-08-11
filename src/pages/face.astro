@@ -1,0 +1,88 @@
+---
+import PageIntro from "../components/PageIntro.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import by from "../images/attribution_icon_white.svg";
+import cc from "../images/cc_white.svg";
+import nc from "../images/nc_white.svg";
+---
+
+<BaseLayout title="私の顔について">
+  <PageIntro
+    eyebrow="License"
+    title="私の顔について"
+    lead="私の顔は、以下のライセンスに反しない限り無償で利用できます。"
+  />
+  <section class="section">
+    <div class="container prose card content">
+      <div class="license-panel">
+        <div class="icons" aria-label="Creative Commons BY-NC 4.0">
+          <img src={cc.src} alt="Creative Commons" />
+          <img src={by.src} alt="Attribution" />
+          <img src={nc.src} alt="Non Commercial" />
+        </div>
+        <a href="https://creativecommons.org/licenses/by-nc/4.0/legalcode.ja" target="_blank" rel="noopener noreferrer">
+          BY-NC 4.0
+        </a>
+      </div>
+
+      <p>
+        基本的には
+        <a href="https://creativecommons.org/licenses/by-nc/4.0/legalcode.ja" target="_blank" rel="noopener noreferrer">
+          クリエイティブ・コモンズ 表示 - 非営利 4.0 国際
+        </a>
+        に従いライセンスを適用します。明言の無いものについてはそれに準拠するとお考えください。
+      </p>
+
+      <h2>利用条件</h2>
+      <ol>
+        <li>営利目的で顔を利用できません。（営利利用は別条件）</li>
+        <li>公序良俗に反する目的での利用はできません。</li>
+        <li>不特定多数に公開されている形態で利用する場合は、何らかの形でクレジットを明記しなければなりません。</li>
+      </ol>
+
+      <h2>非営利利用</h2>
+      <ol>
+        <li>顔を複製したり、再配布できます。</li>
+        <li>顔写真を加工したり、改変したり、別の作品の一部として使用することができます。</li>
+      </ol>
+
+      <h2>営利利用</h2>
+      <p>営利目的で顔を利用の場合は顔の利用料が発生します。お問合せからご相談ください。</p>
+      <p>特に相談がない場合は顔1点につき5000円で利用できます。</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .content {
+    padding: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .license-panel {
+    background: #101820;
+    border-radius: var(--radius);
+    display: grid;
+    gap: 1rem;
+    justify-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+  }
+
+  .icons img {
+    height: 4.5rem;
+    width: 4.5rem;
+  }
+
+  .license-panel a {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+</style>

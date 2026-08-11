@@ -1,0 +1,36 @@
+---
+import PageIntro from "../components/PageIntro.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="関連コンテンツ">
+  <PageIntro
+    eyebrow="Resources"
+    title="関連コンテンツ"
+    lead="公開している関連ファイルやリンクを掲載しています。"
+  />
+  <section class="section">
+    <div class="container">
+      <section class="card resource-card">
+        <h2>PGP公開鍵</h2>
+        <p>RSA 4096bit / F693ACBD429FC019C24942C6C01825FBE232C7CB</p>
+        <a class="button" href="/pgp/public-key.asc" download>ダウンロード</a>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .resource-card {
+    padding: clamp(1.25rem, 4vw, 2rem);
+  }
+
+  h2 {
+    margin: 0 0 0.7rem;
+  }
+
+  p {
+    color: var(--site-muted);
+    overflow-wrap: anywhere;
+  }
+</style>

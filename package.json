@@ -1,49 +1,24 @@
 {
-  "name": "yoidea-portfolio",
+  "name": "lambda-tech-official-site",
   "private": true,
-  "description": "My portfolio",
-  "version": "0.1.0",
+  "description": "YouTubeチャンネル「ラムダ技術部」の公式サイト",
+  "version": "0.2.0",
   "author": "@yoidea",
+  "license": "MIT",
+  "packageManager": "pnpm@11.16.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
   "dependencies": {
     "@netlify/blobs": "8.2.0",
-    "bulma": "^0.7.4",
-    "gatsby": "^2.1.31",
-    "gatsby-image": "^2.0.33",
-    "gatsby-plugin-manifest": "^2.0.24",
-    "gatsby-plugin-offline": "^2.0.25",
-    "gatsby-plugin-react-helmet": "^3.0.9",
-    "gatsby-plugin-sass": "^4.0.0",
-    "gatsby-plugin-sharp": "^2.0.28",
-    "gatsby-source-filesystem": "^2.0.24",
-    "gatsby-transformer-sharp": "^2.1.17",
-    "loaders.css": "^0.1.2",
-    "node-sass": "^6.0.0",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "react-helmet": "^5.2.0",
-    "sweet-scroll": "^4.0.0"
+    "@tailwindcss/vite": "^4.1.13",
+    "astro": "^5.13.5",
+    "tailwindcss": "^4.1.13"
   },
-  "devDependencies": {
-    "babel-jest": "^24.9.0",
-    "babel-preset-gatsby": "^0.2.20",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^24.9.0",
-    "prettier": "^1.16.4",
-    "react-test-renderer": "^16.11.0"
-  },
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "MIT",
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write src/**/*.{js,jsx}",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
-  },
+  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/yoidea/portfolio"

@@ -1,0 +1,41 @@
+---
+import PageIntro from "../components/PageIntro.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="アンケート">
+  <PageIntro
+    eyebrow="Survey"
+    title="アンケート"
+    lead="年明けからの授業をより良くするためにアンケートへご協力をお願いします。"
+  />
+  <section class="section">
+    <div class="container">
+      <section class="card survey-card">
+        <h2>回答について</h2>
+        <ol>
+          <li>無記名なので誰が書いたかはわかりません。</li>
+          <li>基本的に選択式なのですぐに回答できます。</li>
+        </ol>
+        <a class="button" href="https://forms.gle/ufv1eXdwNpm7DHye8" target="_blank" rel="noopener noreferrer">
+          アンケートページへ移動する
+        </a>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .survey-card {
+    padding: clamp(1.25rem, 4vw, 2rem);
+  }
+
+  h2 {
+    margin: 0 0 0.7rem;
+  }
+
+  ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.4rem;
+  }
+</style>

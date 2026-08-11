@@ -61,6 +61,10 @@ typings/
 .cache/
 public
 
+# astro files
+.astro/
+dist/
+
 # Mac files
 .DS_Store
 

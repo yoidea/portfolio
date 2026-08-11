@@ -1,0 +1,88 @@
+---
+interface Item {
+  date: string;
+  sub?: string;
+  text: string;
+  href?: string;
+  linkLabel?: string;
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="timeline">
+  {items.map((item) => (
+    <li>
+      <time>{item.date}</time>
+      <div>
+        {item.sub ? <p class="sub">{item.sub}</p> : null}
+        <p class="text">
+          {item.href ? (
+            <>
+              <a href={item.href} target="_blank" rel="noopener noreferrer">
+                {item.linkLabel}
+              </a>
+              {item.text}
+            </>
+          ) : (
+            item.text
+          )}
+        </p>
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .timeline {
+    border-left: 2px solid var(--site-line);
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 1.4rem;
+  }
+
+  li {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: 5rem minmax(0, 1fr);
+    padding-block: 1rem;
+    position: relative;
+  }
+
+  li::before {
+    background: var(--site-accent);
+    border: 4px solid var(--site-surface);
+    border-radius: 50%;
+    content: "";
+    height: 1rem;
+    left: -1.95rem;
+    position: absolute;
+    top: 1.4rem;
+    width: 1rem;
+  }
+
+  time {
+    color: var(--site-accent);
+    font-weight: 800;
+  }
+
+  .sub {
+    color: var(--site-muted);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .text {
+    margin: 0.15rem 0 0;
+  }
+
+  @media (max-width: 560px) {
+    li {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

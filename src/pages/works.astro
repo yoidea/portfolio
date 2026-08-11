@@ -1,0 +1,68 @@
+---
+import PageIntro from "../components/PageIntro.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import smat from "../images/smat_thumbnail.png";
+---
+
+<BaseLayout title="作ったもの">
+  <PageIntro
+    eyebrow="Works"
+    title="作ったもの"
+    lead="これまでに制作・参加したプロジェクトを掲載しています。"
+  />
+  <section class="section">
+    <div class="container">
+      <article class="card work-card">
+        <img src={smat.src} alt="Smart Teachの画面サムネイル" loading="lazy" />
+        <div>
+          <p class="eyebrow">React / Rails / Heroku</p>
+          <h2>Smart Teach</h2>
+          <p>小テストの作成から出題、採点、分析までをサポートするアプリケーション。</p>
+          <p>チーム開発で主にフロントエンドを担当した。</p>
+          <a class="button" href="https://smat-dev.herokuapp.com" target="_blank" rel="noopener noreferrer">
+            アプリを開く
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .work-card {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 1.2fr);
+    overflow: hidden;
+    padding: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  img {
+    border-radius: calc(var(--radius) - 0.1rem);
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .eyebrow {
+    color: var(--site-accent);
+    font-weight: 800;
+    margin: 0 0 0.4rem;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1;
+    margin: 0 0 1rem;
+  }
+
+  p {
+    color: var(--site-muted);
+  }
+
+  @media (max-width: 780px) {
+    .work-card {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

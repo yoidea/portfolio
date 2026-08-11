@@ -1,0 +1,158 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Design System" noindex>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Internal Preview</p>
+      <h1 class="section-heading">Design System</h1>
+      <p class="lead">Astro移行中のデザイン確認ページです。色、文字、ボタン、カード、遅延状態の確認に使います。</p>
+    </div>
+  </section>
+
+  <section class="section samples">
+    <div class="container grid">
+      <section class="card sample">
+        <h2>Colors</h2>
+        <div class="swatches">
+          <span style="--swatch: var(--site-accent)">Accent</span>
+          <span style="--swatch: var(--site-accent-2)">Orange</span>
+          <span style="--swatch: #3f51b5">Blue</span>
+          <span style="--swatch: #101820">Ink</span>
+        </div>
+      </section>
+
+      <section class="card sample">
+        <h2>Buttons</h2>
+        <div class="button-row">
+          <a class="button" href="#">Primary</a>
+          <a class="button secondary" href="#">Secondary</a>
+        </div>
+      </section>
+
+      <section class="card sample">
+        <h2>Delay Status</h2>
+        <div class="delay-status is-normal">
+          <p>現在の遅延状況</p>
+          <strong>遅延なし</strong>
+        </div>
+        <div class="delay-status is-delayed">
+          <p>現在の遅延状況</p>
+          <strong>72分遅れ</strong>
+        </div>
+      </section>
+
+      <section class="card sample">
+        <h2>Table</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>予定日時</th>
+              <th>対象動画</th>
+              <th>遅れ</th>
+              <th>証明書</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2026年8月8日 18:00</td>
+              <td>サンプル動画</td>
+              <td>72分</td>
+              <td><a class="button" href="#">表示</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .eyebrow {
+    color: var(--site-accent);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .samples {
+    padding-top: 0;
+  }
+
+  .grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sample {
+    padding: 1.5rem;
+  }
+
+  .sample h2 {
+    margin: 0 0 1rem;
+  }
+
+  .swatches,
+  .button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .swatches span {
+    align-items: end;
+    background: var(--swatch);
+    border-radius: var(--radius);
+    color: #fff;
+    display: flex;
+    font-weight: 800;
+    height: 6rem;
+    padding: 0.8rem;
+    width: 9rem;
+  }
+
+  .delay-status {
+    border-left: 0.55rem solid var(--site-accent);
+    border-radius: var(--radius);
+    margin-bottom: 0.8rem;
+    padding: 1rem;
+  }
+
+  .delay-status.is-delayed {
+    border-left-color: var(--site-accent-2);
+  }
+
+  .delay-status p {
+    color: var(--site-muted);
+    font-size: 0.9rem;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  .delay-status strong {
+    font-size: 1.6rem;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  th,
+  td {
+    border: 1px solid var(--site-line);
+    padding: 0.7rem;
+    text-align: left;
+  }
+
+  th {
+    background: #edf3f5;
+  }
+
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

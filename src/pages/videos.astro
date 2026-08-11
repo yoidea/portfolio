@@ -1,0 +1,316 @@
+---
+import PageIntro from "../components/PageIntro.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const legacyCertificates = [
+  {
+    id: "legacy-2022-11-08",
+    scheduledAt: "2022-11-08T18:00:00+09:00",
+    title: "【ケチ】いつでもできるJRの限界節約方法100選",
+    videoUrl: "https://youtu.be/XCMAEwvU3J8",
+    delayMinutes: 13455,
+    href: "/certificate/certificate_of_delay_2022-11-08.pdf",
+  },
+  {
+    id: "legacy-2022-08-20",
+    scheduledAt: "2022-08-20T18:00:00+09:00",
+    title: "仕事を押し付け合うスマートスピーカーを作った",
+    videoUrl: "https://www.youtube.com/shorts/cyPCHMy15SI",
+    delayMinutes: 225,
+    href: "/certificate/certificate_of_delay_2022-08-20.pdf",
+  },
+  {
+    id: "legacy-2022-08-13",
+    scheduledAt: "2022-08-13T18:00:00+09:00",
+    title: "【特定厨】花火の動画から居場所を特定するのちょろすぎて草",
+    videoUrl: "https://youtu.be/DXSQ_hkZyW8",
+    delayMinutes: 210,
+    href: "/certificate/certificate_of_delay_2022-08-13.pdf",
+  },
+];
+---
+
+<BaseLayout title="動画">
+  <PageIntro
+    eyebrow="Videos"
+    title="動画"
+    lead="ラムダ技術部 / Yoidea というチャンネルで技術系の真面目な動画や不真面目な動画を投稿しています。"
+  />
+  <section class="section">
+    <div class="container videos-layout">
+      <section class="card intro-card">
+        <h2>YouTubeチャンネル</h2>
+        <p>不真面目な動画の方が伸びるので多めかもしれません。</p>
+        <p>プログラミングや電子工学、数学などに興味を持つきっかけになれると嬉しいです。</p>
+        <a class="button" href="https://www.youtube.com/channel/UC8g17oXkRt8buwQL8GU-NSw" target="_blank" rel="noopener noreferrer">
+          YouTubeを開く
+        </a>
+      </section>
+
+      <section class="card delay-card" id="delay" aria-labelledby="delay-title">
+        <h2 id="delay-title">遅延証明書</h2>
+        <section id="delay-status" class="delay-status is-unknown" aria-live="polite">
+          <p>現在の遅延状況</p>
+          <strong>確認中</strong>
+        </section>
+        <p>
+          ラムダ技術部では毎週土曜日18時に投稿予定の動画が10分以上遅れた場合、遅延証明書を掲載いたします。
+          <br />
+          遅延の証明が必要な際にダウンロードしてお使いください。
+        </p>
+        <div id="certificate-message" class="message">遅延証明書を読み込んでいます。</div>
+        <div class="table-wrap">
+          <table id="certificate-table" hidden>
+            <thead>
+              <tr>
+                <th>予定日時</th>
+                <th>対象動画</th>
+                <th>遅れ</th>
+                <th>証明書</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="note">※ 18時投稿はベストエフォートです。</p>
+      </section>
+    </div>
+  </section>
+
+  <script define:vars={{ legacyCertificates }}>
+    const API_PATH = "/.netlify/functions/delay-certificates";
+    const params = new URLSearchParams(window.location.search);
+    const mockMode = params.get("mock");
+    const statusBox = document.querySelector("#delay-status");
+    const message = document.querySelector("#certificate-message");
+    const table = document.querySelector("#certificate-table");
+    const tbody = table.querySelector("tbody");
+
+    function buildMock(mode) {
+      const now = new Date();
+      const scheduled = new Date(now);
+      scheduled.setHours(18, 0, 0, 0);
+      const day = scheduled.getDay();
+      scheduled.setDate(scheduled.getDate() - ((day - 6 + 7) % 7));
+
+      if (mode === "published") {
+        const published = new Date(scheduled.getTime() + 72 * 60000);
+        const certificate = {
+          id: "mock-published",
+          scheduledAt: scheduled.toISOString(),
+          checkedAt: now.toISOString(),
+          status: "published",
+          publishedAt: published.toISOString(),
+          delayMinutes: 72,
+          videoTitle: "モック動画: 投稿済み",
+          videoUrl: "https://www.youtube.com/channel/UC8g17oXkRt8buwQL8GU-NSw",
+        };
+        return { latest: certificate, certificates: [certificate] };
+      }
+
+      if (mode === "delayed" || mode === "true") {
+        const certificate = {
+          id: "mock-delayed",
+          scheduledAt: scheduled.toISOString(),
+          checkedAt: now.toISOString(),
+          status: "delayed",
+          publishedAt: null,
+          delayMinutes: Math.max(10, Math.floor((now - scheduled) / 60000)),
+          videoTitle: null,
+          videoUrl: null,
+        };
+        return { latest: certificate, certificates: [certificate] };
+      }
+
+      return null;
+    }
+
+    function formatDateTime(value) {
+      if (!value) return "";
+      return new Intl.DateTimeFormat("ja-JP", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "Asia/Tokyo",
+      }).format(new Date(value));
+    }
+
+    function formatMinutes(minutes) {
+      const safeMinutes = Number(minutes) || 0;
+      const days = Math.floor(safeMinutes / 1440);
+      const hours = Math.floor((safeMinutes % 1440) / 60);
+      const restMinutes = safeMinutes % 60;
+      if (days > 0) return `${days}日 ${hours}時間 ${restMinutes}分`;
+      if (hours > 0) return `${hours}時間 ${restMinutes}分`;
+      return `${safeMinutes}分`;
+    }
+
+    function effectiveDelayMinutes(certificate) {
+      if (certificate && certificate.status === "delayed" && certificate.scheduledAt) {
+        return Math.max(0, Math.floor((Date.now() - new Date(certificate.scheduledAt).getTime()) / 60000));
+      }
+      return certificate ? certificate.delayMinutes : 0;
+    }
+
+    function statusLabel(status) {
+      return {
+        delayed: "遅延中",
+        published: "公開済み",
+        "no-delay": "遅延なし",
+        pending: "確認中",
+      }[status] || status || "";
+    }
+
+    function mockSuffix() {
+      return mockMode ? `&mock=${encodeURIComponent(mockMode)}` : "";
+    }
+
+    function buildRows(certificates) {
+      const electronicRows = certificates.map((certificate) => ({
+        id: certificate.id,
+        scheduledAt: certificate.scheduledAt,
+        title: certificate.videoUrl
+          ? `<a href="${certificate.videoUrl}" target="_blank" rel="noopener noreferrer">${certificate.videoTitle}</a>`
+          : statusLabel(certificate.status),
+        delayLabel: formatMinutes(effectiveDelayMinutes(certificate)),
+        documentLabel: "表示",
+        href: `/delay-certificate?id=${encodeURIComponent(certificate.id)}${mockSuffix()}`,
+      }));
+      const legacyRows = legacyCertificates.map((certificate) => ({
+        ...certificate,
+        title: `<a href="${certificate.videoUrl}" target="_blank" rel="noopener noreferrer">${certificate.title}</a>`,
+        delayLabel: formatMinutes(certificate.delayMinutes),
+        documentLabel: "PDF",
+      }));
+      return [...electronicRows, ...legacyRows].sort((a, b) => new Date(b.scheduledAt) - new Date(a.scheduledAt));
+    }
+
+    function renderStatus(latest, error) {
+      const isDelayed = latest && latest.status === "delayed";
+      const isNormal = latest && !isDelayed;
+      const label = latest
+        ? isDelayed
+          ? `${formatMinutes(effectiveDelayMinutes(latest))}遅れ`
+          : "遅延なし"
+        : error
+          ? "取得できません"
+          : "確認中";
+      statusBox.className = `delay-status ${isDelayed ? "is-delayed" : isNormal ? "is-normal" : "is-unknown"}`;
+      statusBox.querySelector("strong").textContent = label;
+    }
+
+    function renderRows(rows) {
+      tbody.innerHTML = rows.map((row) => `
+        <tr>
+          <td>${formatDateTime(row.scheduledAt)}</td>
+          <td>${row.title}</td>
+          <td>${row.delayLabel}</td>
+          <td><a class="button" href="${row.href}" ${row.documentLabel === "PDF" ? 'target="_blank" rel="noopener noreferrer"' : ""}>${row.documentLabel}</a></td>
+        </tr>
+      `).join("");
+      table.hidden = rows.length === 0;
+    }
+
+    async function init() {
+      const mock = buildMock(mockMode);
+      try {
+        const data = mock || await fetch(API_PATH).then(async (response) => {
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error || "遅延証明書を取得できませんでした。");
+          return data;
+        });
+        const rows = buildRows(data.certificates || []);
+        renderStatus(data.latest, null);
+        renderRows(rows);
+        message.textContent = rows.length ? "" : "現在、発行済みの遅延証明書はありません。";
+      } catch (error) {
+        const rows = buildRows([]);
+        renderStatus(null, error);
+        renderRows(rows);
+        message.textContent = `電子版の取得に失敗しました: ${error.message}`;
+      }
+    }
+
+    init();
+  </script>
+</BaseLayout>
+
+<style>
+  .videos-layout {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .intro-card,
+  .delay-card {
+    padding: clamp(1.25rem, 4vw, 2rem);
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    line-height: 1.15;
+    margin: 0 0 1rem;
+  }
+
+  .delay-status {
+    background: #fff;
+    border-left: 0.55rem solid var(--site-slate);
+    border-radius: var(--radius);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+    margin: 1.5rem 0;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .delay-status.is-normal {
+    border-left-color: var(--site-accent);
+  }
+
+  .delay-status.is-delayed {
+    border-left-color: var(--site-accent-2);
+  }
+
+  .delay-status p {
+    color: var(--site-muted);
+    font-size: 0.9rem;
+    font-weight: 800;
+    margin: 0 0 0.35rem;
+  }
+
+  .delay-status strong {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+  }
+
+  .message {
+    color: var(--site-muted);
+    min-height: 1.75rem;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  table {
+    background: #fff;
+    min-width: 720px;
+    width: 100%;
+  }
+
+  th,
+  td {
+    border: 1px solid var(--site-line);
+    padding: 0.8rem 0.9rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background: #edf3f5;
+  }
+
+  .note {
+    color: var(--site-muted);
+    font-size: 0.9rem;
+  }
+</style>

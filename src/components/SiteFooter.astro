@@ -1,0 +1,55 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; {year} ラムダ技術部</p>
+    <nav aria-label="補助ナビゲーション">
+      <a href="/guidelines">利用ガイドライン</a>
+      <a href="/face">顔の利用について</a>
+      <a href="/pgp">関連コンテンツ</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #101820;
+    color: #d8e0e6;
+    padding-block: 2rem;
+  }
+
+  .footer-inner {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1rem;
+  }
+
+  a {
+    color: #d8e0e6;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #fff;
+  }
+
+  @media (max-width: 700px) {
+    .footer-inner {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>

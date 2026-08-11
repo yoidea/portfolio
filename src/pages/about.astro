@@ -1,0 +1,66 @@
+---
+import PageIntro from "../components/PageIntro.astro";
+import TimelineList from "../components/TimelineList.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const education = [
+  { date: "2010", sub: "在上海日本国総領事館付属", href: "http://www.srx2.net.cn/", linkLabel: "上海日本人学校", text: "虹橋校" },
+  { date: "2013", sub: "神戸市立", href: "http://www2.kobe-c.ed.jp/osb-ms/", linkLabel: "押部谷中学校", text: "" },
+  { date: "2018", sub: "神戸市立", href: "http://www.kobe-kosen.ac.jp/", linkLabel: "工業高等専門学校", text: "電子工学科" },
+  { date: "2020", sub: "国立", href: "http://www.shinshu-u.ac.jp/", linkLabel: "信州大学", text: "工学部 電子情報システム工学科" },
+];
+
+const careers = [
+  { date: "2014", sub: "株式会社ヤマダデンキ", text: "ヤマダ電機テックランド神戸垂水店" },
+  { date: "2015", sub: "株式会社ダイエー", text: "ダイエー西神中央店" },
+  { date: "2016", sub: "株式会社創造学園", text: "エディック個別西神校" },
+  { date: "2016", sub: "ニッセイコム株式会社", text: "公共事業部 インターンシップ" },
+  { date: "2018", sub: "アイキューブ株式会社", text: "いずみ塾 大豆島校" },
+  { date: "2018", sub: "クックパッド株式会社", text: "10 Day Tech インターンシップ" },
+  { date: "2020", sub: "ヤフー株式会社", text: "サービス統括部 PIM本部 開発1部" },
+  { date: "2021", sub: "滋慶学園グループ", text: "東京デザインテクノロジーセンター専門学校" },
+];
+---
+
+<BaseLayout title="プロフィール">
+  <PageIntro
+    eyebrow="About"
+    title="何者なのか"
+    lead="ソフトウェアエンジニアとして働いています。音楽、映像、webページ、何でも作ります。コードを書いたりギターを弾いたりするのが好きです。"
+  />
+  <section class="section">
+    <div class="container split">
+      <section class="card panel">
+        <h2>学歴</h2>
+        <TimelineList items={education} />
+      </section>
+      <section class="card panel">
+        <h2>職歴</h2>
+        <TimelineList items={careers} />
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .split {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .panel {
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    margin: 0 0 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

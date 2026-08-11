@@ -1,0 +1,100 @@
+---
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/videos", label: "Videos" },
+  { href: "/works", label: "Works" },
+  { href: "/contact", label: "Contact" },
+];
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="ラムダ技術部 トップページ">
+      <span class="brand-mark">λ</span>
+      <span>ラムダ技術部</span>
+    </a>
+    <nav aria-label="主要ナビゲーション">
+      <ul>
+        {navItems.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: rgba(247, 249, 251, 0.88);
+    border-bottom: 1px solid var(--site-line);
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(14px);
+    z-index: 20;
+  }
+
+  .header-inner {
+    align-items: center;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: space-between;
+    min-height: 4.5rem;
+  }
+
+  .brand {
+    align-items: center;
+    color: var(--site-ink);
+    display: inline-flex;
+    font-weight: 800;
+    gap: 0.65rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .brand-mark {
+    align-items: center;
+    background: var(--site-ink);
+    border-radius: 50%;
+    color: #fff;
+    display: inline-flex;
+    font-size: 1.25rem;
+    height: 2.25rem;
+    justify-content: center;
+    width: 2.25rem;
+  }
+
+  ul {
+    display: flex;
+    gap: clamp(0.45rem, 2vw, 1.1rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav a {
+    color: var(--site-muted);
+    display: inline-flex;
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 0.6rem 0.25rem;
+    text-decoration: none;
+  }
+
+  nav a:hover {
+    color: var(--site-ink);
+  }
+
+  @media (max-width: 700px) {
+    .header-inner {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding-block: 0.85rem;
+    }
+
+    ul {
+      flex-wrap: wrap;
+    }
+  }
+</style>
