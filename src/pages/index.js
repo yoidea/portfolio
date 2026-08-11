@@ -44,9 +44,9 @@ class IndexPage extends Component {
           className="flip-in-hor-bottom-2 button is-success is-rounded is-inverted is-outlined"
           target="_blank"
           rel="noopener noreferrer"
-          href="https://www.tiktok.com/@yoidea"
+          href="https://www.instagram.com/yoidea"
         >
-          TikTok
+          Instagram
         </a>
       </div>
     );
