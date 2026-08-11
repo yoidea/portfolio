@@ -17,19 +17,25 @@ const LEGACY_DELAY_CERTIFICATES = [
   {
     id: "legacy-2022-11-08",
     scheduledAt: "2022-11-08T18:00:00+09:00",
-    title: "過去のPDF版遅延証明書",
+    title: "【ケチ】いつでもできるJRの限界節約方法100選",
+    videoUrl: "https://youtu.be/XCMAEwvU3J8",
+    delayMinutes: 13455,
     href: "/certificate/certificate_of_delay_2022-11-08.pdf",
   },
   {
     id: "legacy-2022-08-20",
     scheduledAt: "2022-08-20T18:00:00+09:00",
-    title: "過去のPDF版遅延証明書",
+    title: "仕事を押し付け合うスマートスピーカーを作った",
+    videoUrl: "https://www.youtube.com/shorts/cyPCHMy15SI",
+    delayMinutes: 225,
     href: "/certificate/certificate_of_delay_2022-08-20.pdf",
   },
   {
     id: "legacy-2022-08-13",
     scheduledAt: "2022-08-13T18:00:00+09:00",
-    title: "過去のPDF版遅延証明書",
+    title: "【特定厨】花火の動画から居場所を特定するのちょろすぎて草",
+    videoUrl: "https://youtu.be/DXSQ_hkZyW8",
+    delayMinutes: 210,
     href: "/certificate/certificate_of_delay_2022-08-13.pdf",
   },
 ];
@@ -211,10 +217,9 @@ class VideosPage extends Component {
           <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
             <thead>
               <tr>
-                <th>予定日時</th>
-                <th>対象動画</th>
+                <th>日時</th>
+                <th>タイトル</th>
                 <th>遅れ</th>
-                <th>証明書</th>
               </tr>
             </thead>
             <tbody>
@@ -231,9 +236,8 @@ class VideosPage extends Component {
   renderCertificateRow(certificate) {
     return (
       <tr key={certificate.id}>
-        <td>{formatDateTime(certificate.scheduledAt)}</td>
+        <td>{formatDate(certificate.scheduledAt)}</td>
         <td>{certificate.title}</td>
-        <td>{certificate.delayLabel}</td>
         <td>
           {certificate.href ? (
             <a
@@ -242,11 +246,11 @@ class VideosPage extends Component {
               target="_blank"
               rel="noopener noreferrer"
             >
-              PDF
+              {certificate.delayLabel}
             </a>
           ) : (
             <Link className="button is-primary" to={certificate.to}>
-              表示
+              {certificate.delayLabel}
             </Link>
           )}
         </td>
@@ -296,7 +300,7 @@ const delaySectionStyles = `
 }
 `;
 
-function formatDateTime(value) {
+function formatDate(value) {
   if (!value) {
     return "";
   }
@@ -305,8 +309,6 @@ function formatDateTime(value) {
     year: "numeric",
     month: "long",
     day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
     timeZone: "Asia/Tokyo",
   }).format(new Date(value));
 }
@@ -350,7 +352,12 @@ function buildCertificateRows(certificates, mockMode) {
   }));
   const legacyRows = LEGACY_DELAY_CERTIFICATES.map(certificate => ({
     ...certificate,
-    delayLabel: "PDF版",
+    title: (
+      <a target="_blank" rel="noopener noreferrer" href={certificate.videoUrl}>
+        {certificate.title}
+      </a>
+    ),
+    delayLabel: formatMinutes(certificate.delayMinutes),
   }));
 
   return [...electronicRows, ...legacyRows].sort(
